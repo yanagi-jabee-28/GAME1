@@ -40,23 +40,41 @@ export class PrimeManager {
      */
     getCurrentLevel() {
         return this.currentLevel;
-    }
-
-    /**
+    }    /**
      * ランダムな素数を選択
-     * @param {number} count - 選択する素数の数（デフォルト：2-4個）
+     * @param {number} count - 選択する素数の数（デフォルト：レベルに応じて調整）
      * @returns {Array} 選択された素数の配列
      */
     selectRandomPrimes(count = null) {
         const primes = this.getCurrentPrimes();
-        const selectCount = count || Utils.getRandomInt(2, Math.min(4, primes.length));
+        let selectCount;
+        
+        if (count !== null) {
+            selectCount = count;
+        } else {
+            // レベルに応じて素数の選択数を調整
+            switch (this.currentLevel) {
+                case 1:
+                    // レベル1: 5桁の数字を作りやすくするため3-5個選択
+                    selectCount = Utils.getRandomInt(3, Math.min(5, primes.length));
+                    break;
+                case 2:
+                case 3:
+                    selectCount = Utils.getRandomInt(2, Math.min(4, primes.length));
+                    break;
+                default:
+                    selectCount = Utils.getRandomInt(2, Math.min(3, primes.length));
+                    break;
+            }
+        }
         
         const selected = [];
         const available = [...primes];
         
-        for (let i = 0; i < selectCount && available.length > 0; i++) {
-            const index = Utils.getRandomInt(0, available.length - 1);
-            selected.push(available.splice(index, 1)[0]);
+        // 重複を許可して素数を選択（同じ素数を複数回使用可能）
+        for (let i = 0; i < selectCount; i++) {
+            const index = Utils.getRandomInt(0, primes.length - 1);
+            selected.push(primes[index]);
         }
         
         return selected.sort((a, b) => a - b);
