@@ -350,8 +350,12 @@ export class PrimeGame {    constructor() {
                 factorDisplay.textContent = `✨ ${originalNumber} = ${factorText}`;
                 factorDisplay.classList.add('complete');
             } else {
-                // 進行中の表示: 元の数字から使用済み因数を示す
-                factorDisplay.textContent = `${originalNumber} ÷ ${factorText} = ${this.currentNumber}`;
+                // 進行中の表示: 括弧を使って正しい計算順序を示す
+                if (this.usedFactors.length === 1) {
+                    factorDisplay.textContent = `${originalNumber} ÷ ${factorText} = ${this.currentNumber}`;
+                } else {
+                    factorDisplay.textContent = `${originalNumber} ÷ (${factorText}) = ${this.currentNumber}`;
+                }
                 factorDisplay.classList.remove('complete');
             }
             
@@ -360,7 +364,7 @@ export class PrimeGame {    constructor() {
         } else if (factorDisplay && this.usedFactors.length === 0) {
             factorDisplay.style.display = 'none';
         }
-    }    /**
+    }/**
      * 因数分解完了時の処理
      */
     onFactorizationComplete() {
