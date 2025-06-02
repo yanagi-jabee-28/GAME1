@@ -198,22 +198,15 @@ export class PrimeGame {    constructor() {
             button.textContent = prime;
             button.title = `素数 ${prime}`;
             
-            // 現在の数字が存在し、その素数で割り切れるかチェック
-            const canDivide = this.currentNumber && this.currentNumber % prime === 0;
-            
-            // ボタンの状態を設定
+            // 数字が生成されていない場合のみ無効化
             if (!this.currentNumber) {
                 button.disabled = true;
                 button.classList.add('disabled');
-            } else if (canDivide) {
-                button.classList.add('available');
-            } else {
-                button.classList.add('unavailable');
             }
             
             // クリックイベント
             button.addEventListener('click', () => {
-                this.divideBePrime(prime);
+                this.attemptDivision(prime);
             });
             
             primeButtonsContainer.appendChild(button);
@@ -234,15 +227,29 @@ export class PrimeGame {    constructor() {
             }
         }
     }    /**
-     * 指定した素数で現在の数字を割る
-     * @param {number} prime - 割る素数
+     * 指定した素数で現在の数字を割ろうと試みる
+     * @param {number} prime - 割ろうとする素数
      */
-    divideBePrime(prime) {
-        if (!this.currentNumber || this.currentNumber % prime !== 0) {
-            // 割り切れない場合は何もしない
+    attemptDivision(prime) {
+        if (!this.currentNumber) {
             return;
         }
 
+        // 割り切れるかチェック
+        if (this.currentNumber % prime === 0) {
+            // 正解の場合
+            this.performCorrectDivision(prime);
+        } else {
+            // 不正解の場合
+            this.showIncorrectFeedback(prime);
+        }
+    }
+
+    /**
+     * 正解時の割り算を実行
+     * @param {number} prime - 割る素数
+     */
+    performCorrectDivision(prime) {
         // 数字を割る
         this.currentNumber = this.currentNumber / prime;
         this.usedFactors.push(prime);
@@ -256,6 +263,9 @@ export class PrimeGame {    constructor() {
         // 新しい数字を表示
         this.uiManager.displayNumber(this.currentNumber);
         
+        // 正解フィードバック
+        this.showCorrectFeedback(prime);
+        
         // 使用した因数を表示
         this.updateUsedFactorsDisplay();
         
@@ -266,6 +276,65 @@ export class PrimeGame {    constructor() {
         if (this.currentNumber === 1) {
             this.onFactorizationComplete();
         }
+    }
+
+    /**
+     * 正解時のフィードバックを表示
+     * @param {number} prime - 使用した素数
+     */
+    showCorrectFeedback(prime) {
+        const numberDisplay = document.getElementById('number-display');
+        if (numberDisplay) {
+            // 一時的に正解エフェクトを追加
+            numberDisplay.classList.add('correct');
+            setTimeout(() => {
+                numberDisplay.classList.remove('correct');
+            }, 800);
+        }
+
+        // 音や視覚効果を追加（オプション）
+        this.createFloatingText(`✅ 正解！÷${prime}`, 'success');
+    }
+
+    /**
+     * 不正解時のフィードバックを表示
+     * @param {number} prime - 使用しようとした素数
+     */
+    showIncorrectFeedback(prime) {
+        const numberDisplay = document.getElementById('number-display');
+        if (numberDisplay) {
+            // 一時的に不正解エフェクトを追加
+            numberDisplay.classList.add('incorrect');
+            setTimeout(() => {
+                numberDisplay.classList.remove('incorrect');
+            }, 800);
+        }
+
+        // 不正解メッセージを表示
+        this.createFloatingText(`❌ ${this.currentNumber}は${prime}で割り切れません`, 'error');
+    }
+
+    /**
+     * フローティングテキストを作成
+     * @param {string} text - 表示するテキスト
+     * @param {string} type - タイプ（'success' または 'error'）
+     */
+    createFloatingText(text, type) {
+        const gameArea = document.querySelector('.game-area');
+        if (!gameArea) return;
+
+        const floatingText = document.createElement('div');
+        floatingText.className = `floating-text ${type}`;
+        floatingText.textContent = text;
+        
+        gameArea.appendChild(floatingText);
+        
+        // アニメーション後に削除
+        setTimeout(() => {
+            if (floatingText.parentNode) {
+                floatingText.parentNode.removeChild(floatingText);
+            }
+        }, 2000);
     }
 
     /**
