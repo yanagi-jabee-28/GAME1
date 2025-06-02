@@ -359,24 +359,12 @@ export class PrimeGame {
 			}
 		}, 2000);
 	}    /**
-     * フローティングテキストの位置を調整（正解は重ねる、不正解は避ける）
+     * フローティングテキストの位置を調整（全てのメッセージを同じ位置に重ねる）
      */    positionFloatingText(floatingText, calculationArea) {
-		const existingFloatingTexts = calculationArea.querySelectorAll('.floating-text');
-		
 		// 計算エリアの上部（数字表示と計算式の間）に配置
-		let topPosition = 10; // 上部から10px
+		const topPosition = 10; // 上部から10px
 		
-		// 正解メッセージの場合は重ねても良い、不正解メッセージの場合は避ける
-		if (floatingText.classList.contains('error')) {
-			// 不正解の場合は既存のテキストを避けて配置
-			if (existingFloatingTexts.length > 0) {
-				topPosition = 10 + (existingFloatingTexts.length * 45); // 45px間隔で配置
-			}
-		} else {
-			// 正解や情報メッセージの場合は基本位置に配置（重ねる）
-			topPosition = 10;
-		}
-
+		// 全てのメッセージタイプ（正解、不正解、情報）を同じ位置に配置（重ねる）
 		floatingText.style.top = `${topPosition}px`;
 		
 		// 水平方向は中央
