@@ -171,18 +171,38 @@ export class PrimeGame {    constructor() {
         this.updateFactorDisplay();
         this.updateShowFactorsButton();
         this.uiManager.displayPlaceholder('素数の積を生成してください');
-    }
-
-    /**
+    }    /**
      * レベル表示を更新
      */
     updateLevelDisplay() {
         const levelDisplay = document.getElementById('current-level');
         if (levelDisplay) {
+            const level = this.primeManager.getCurrentLevel();
             const primes = this.primeManager.getCurrentPrimes().join(', ');
-            levelDisplay.textContent = `レベル ${this.primeManager.getCurrentLevel()} (素数: ${primes})`;
+            
+            // レベルごとの説明を追加
+            let description = '';
+            switch (level) {
+                case 1:
+                    description = ' - 簡単（2-3個の因数）';
+                    break;
+                case 2:
+                    description = ' - 普通（3-4個の因数）';
+                    break;
+                case 3:
+                    description = ' - 難しい（4-6個の因数）';
+                    break;
+                case 4:
+                    description = ' - とても難しい（新しい素数を含む）';
+                    break;
+                case 5:
+                    description = ' - 超難しい（最も大きな素数を含む）';
+                    break;
+            }
+            
+            levelDisplay.textContent = `レベル ${level} (素数: ${primes})${description}`;
         }
-    }    /**
+    }/**
      * 素数ボタンを更新
      */
     updatePrimeButtons() {

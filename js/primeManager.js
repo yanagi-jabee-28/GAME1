@@ -2,18 +2,16 @@
 import { Utils } from './utils.js';
 
 export class PrimeManager {
-    constructor() {
-        // 各レベルで使用する素数を定義
+    constructor() {        // 各レベルで使用する素数を定義
         this.primesByLevel = {
-            1: [2, 3, 5, 7],
-            2: [2, 3, 5, 7, 11, 13],
-            3: [2, 3, 5, 7, 11, 13, 17, 19],
-            4: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29],
-            5: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+            1: [2, 3, 5, 7],      // レベル1: 基本素数のみ
+            2: [2, 3, 5, 7],      // レベル2: 基本素数のみ（より多くの因数）
+            3: [2, 3, 5, 7],      // レベル3: 基本素数のみ（最も多くの因数）
+            4: [2, 3, 5, 7, 11, 13],    // レベル4: 11, 13を追加
+            5: [2, 3, 5, 7, 11, 13, 17, 19]  // レベル5: 17, 19を追加
         };
-        
-        this.currentLevel = 1;
-        this.maxDigits = 5;
+          this.currentLevel = 1;
+        this.maxDigits = 6;  // 最大6桁まで許可（レベル3で大きな数字を生成するため）
     }
 
     /**
@@ -51,16 +49,27 @@ export class PrimeManager {
         
         if (count !== null) {
             selectCount = count;
-        } else {
-            // レベルに応じて素数の選択数を調整
+        } else {            // レベルに応じて素数の選択数を調整
             switch (this.currentLevel) {
                 case 1:
-                    // レベル1: 5桁の数字を作りやすくするため3-5個選択
-                    selectCount = Utils.getRandomInt(3, Math.min(5, primes.length));
+                    // レベル1: 2-3個の因数で小さめの数字
+                    selectCount = Utils.getRandomInt(2, 3);
                     break;
                 case 2:
+                    // レベル2: 3-4個の因数で中程度の数字
+                    selectCount = Utils.getRandomInt(3, 4);
+                    break;
                 case 3:
-                    selectCount = Utils.getRandomInt(2, Math.min(4, primes.length));
+                    // レベル3: 4-6個の因数で大きめの数字
+                    selectCount = Utils.getRandomInt(4, 6);
+                    break;
+                case 4:
+                    // レベル4: 3-4個の因数（新しい素数を含む）
+                    selectCount = Utils.getRandomInt(3, 4);
+                    break;
+                case 5:
+                    // レベル5: 3-5個の因数（さらに大きな素数を含む）
+                    selectCount = Utils.getRandomInt(3, 5);
                     break;
                 default:
                     selectCount = Utils.getRandomInt(2, Math.min(3, primes.length));
