@@ -1,47 +1,47 @@
 /* ボタンスタイル */
 .btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    outline: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	padding: 12px 24px;
+	border: none;
+	border-radius: 25px;
+	font-size: 1.1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	outline: none;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .btn:active {
-    transform: translateY(0);
+	transform: translateY(0);
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
+	background: linear-gradient(45deg, #667eea, #764ba2);
+	color: white;
 }
 
 .btn-secondary {
-    background: linear-gradient(45deg, #f093fb, #f5576c);
-    color: white;
+	background: linear-gradient(45deg, #f093fb, #f5576c);
+	color: white;
 }
 
 .btn-success {
-    background: linear-gradient(45deg, #4facfe, #00f2fe);
-    color: white;
+	background: linear-gradient(45deg, #4facfe, #00f2fe);
+	color: white;
 }
 
 .btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
 }
 
 .btn:disabled:hover {
-    transform: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	transform: none;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }

@@ -1,62 +1,62 @@
 /* 履歴表示のスタイル */
 #history-section {
-    background: #f0f4f8;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin-top: 1.5rem;
-    border-left: 4px solid #4a90e2;
+	background: #f0f4f8;
+	border-radius: 10px;
+	padding: 1.5rem;
+	margin-top: 1.5rem;
+	border-left: 4px solid #4a90e2;
 }
 
 #history-section h3 {
-    color: #333;
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
+	color: #333;
+	margin-bottom: 1rem;
+	font-size: 1.3rem;
 }
 
 .history-list {
-    list-style: none;
-    padding: 0;
-    max-height: 200px;
-    overflow-y: auto;
+	list-style: none;
+	padding: 0;
+	max-height: 200px;
+	overflow-y: auto;
 }
 
 .history-list li {
-    background: white;
-    margin: 0.5rem 0;
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-left: 3px solid #4a90e2;
-    font-weight: 500;
-    animation: slideIn 0.3s ease-out forwards;
-    opacity: 0;
-    transform: translateX(-20px);
+	background: white;
+	margin: 0.5rem 0;
+	padding: 0.8rem 1rem;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	border-left: 3px solid #4a90e2;
+	font-weight: 500;
+	animation: slideIn 0.3s ease-out forwards;
+	opacity: 0;
+	transform: translateX(-20px);
 }
 
 @keyframes slideIn {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
 }
 
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-        margin: 1rem;
-    }
-    
-    .number-display {
-        font-size: 3rem;
-    }
-    
-    .controls {
-        flex-direction: column;
-    }
-    
-    .btn {
-        width: 100%;
-        margin: 0.5rem 0;
-    }
+	.container {
+		padding: 1rem;
+		margin: 1rem;
+	}
+
+	.number-display {
+		font-size: 3rem;
+	}
+
+	.controls {
+		flex-direction: column;
+	}
+
+	.btn {
+		width: 100%;
+		margin: 0.5rem 0;
+	}
 }
