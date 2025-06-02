@@ -3,52 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>算数ゲーム - 数字表示</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>算数学習ゲーム - 数字表示</title>
+    
+    <!-- CSS読み込み -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/game.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/history.css">
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1>算数ゲーム</h1>
-            <p class="subtitle">数字がランダムに表示されます</p>
-        </header>
+        <h1>🎲 数字表示ゲーム</h1>
         
-        <main class="game-area">
-            <div class="number-display" id="numberDisplay">
-                <span class="number" id="currentNumber">0</span>
+        <div class="game-area">
+            <div id="number-display" class="number-display">
+                数字を生成してください
             </div>
             
             <div class="controls">
-                <button class="btn btn-primary" id="generateBtn">新しい数字を表示</button>
-                <button class="btn btn-secondary" id="pauseBtn">一時停止</button>
-                <button class="btn btn-success" id="autoBtn">自動表示開始</button>
+                <button id="generate-btn" class="btn btn-primary">
+                    🎯 数字を生成
+                </button>
+                <button id="history-btn" class="btn btn-secondary">
+                    📝 履歴を見る
+                </button>
+                <button id="settings-btn" class="btn btn-success">
+                    ⚙️ 設定
+                </button>
             </div>
-            
-            <div class="settings">
-                <div class="setting-group">
-                    <label for="rangeSelect">数字の範囲:</label>
-                    <select id="rangeSelect" class="select">
-                        <option value="10">1～10</option>
-                        <option value="100" selected>1～100</option>
-                        <option value="1000">1～1000</option>
-                    </select>
-                </div>
-                
-                <div class="setting-group">
-                    <label for="speedRange">表示速度:</label>
-                    <input type="range" id="speedRange" min="500" max="3000" value="1500" class="range">
-                    <span id="speedValue">1.5秒</span>
-                </div>
-            </div>
-        </main>
-        
-        <footer class="footer">
-            <p>数字を見て数感覚を養いましょう！</p>
-        </footer>
+        </div>
+
+        <!-- 履歴セクション -->
+        <div id="history-section" style="display: none;">
+            <h3>生成履歴</h3>
+            <ul id="history-list" class="history-list">
+                <!-- 履歴がここに表示されます -->
+            </ul>
+        </div>
+
+        <div style="margin-top: 2rem; color: #666; font-size: 0.9rem;">
+            💡 ヒント: スペースキーでも数字を生成できます
+        </div>
     </div>
-      <script src="js/utils.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/main.js"></script>
+
+    <!-- JavaScript読み込み -->
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

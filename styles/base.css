@@ -1,55 +1,32 @@
-/* ベーススタイル - 共通のリセットと基本設定 */
-
-/* リセットCSS */
+/* 基本スタイル */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* 基本スタイル */
 body {
-    font-family: 'Arial', 'Meiryo', sans-serif;
+    font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
-    color: #333;
+    align-items: center;
 }
 
 .container {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
     max-width: 600px;
     width: 90%;
-    text-align: center;
 }
 
-/* ヘッダー */
-.header h1 {
-    color: #4a5568;
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.subtitle {
-    color: #718096;
-    font-size: 1.1rem;
+h1 {
+    color: #333;
     margin-bottom: 2rem;
-}
-
-/* フッター */
-.footer {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e2e8f0;
-}
-
-.footer p {
-    color: #718096;
-    font-style: italic;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }

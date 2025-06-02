@@ -1,20 +1,19 @@
-/* コンポーネントスタイル - ボタン、フォーム要素など */
-
-/* ボタンコンポーネント */
+/* ボタンスタイル */
 .btn {
-    padding: 0.75rem 1.5rem;
+    padding: 12px 24px;
     border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 120px;
+    outline: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .btn:active {
@@ -22,30 +21,18 @@
 }
 
 .btn-primary {
-    background: linear-gradient(145deg, #4299e1, #3182ce);
+    background: linear-gradient(45deg, #667eea, #764ba2);
     color: white;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(145deg, #3182ce, #2c5282);
 }
 
 .btn-secondary {
-    background: linear-gradient(145deg, #a0aec0, #718096);
+    background: linear-gradient(45deg, #f093fb, #f5576c);
     color: white;
-}
-
-.btn-secondary:hover {
-    background: linear-gradient(145deg, #718096, #4a5568);
 }
 
 .btn-success {
-    background: linear-gradient(145deg, #48bb78, #38a169);
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
     color: white;
-}
-
-.btn-success:hover {
-    background: linear-gradient(145deg, #38a169, #2f855a);
 }
 
 .btn:disabled {
@@ -54,46 +41,7 @@
     transform: none;
 }
 
-/* フォーム要素 */
-.select {
-    padding: 0.5rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 5px;
-    background: white;
-    font-size: 1rem;
-}
-
-.range {
-    width: 150px;
-    margin: 0.5rem 0;
-}
-
-/* 設定エリア */
-.settings {
-    background: #f7fafc;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin: 2rem 0;
-    display: flex;
-    gap: 2rem;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.setting-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.setting-group label {
-    font-weight: 600;
-    color: #4a5568;
-}
-
-#speedValue {
-    font-size: 0.9rem;
-    color: #718096;
-    font-weight: 600;
+.btn:disabled:hover {
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
