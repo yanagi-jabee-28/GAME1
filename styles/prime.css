@@ -194,14 +194,14 @@
 /* 因数分解表示 */
 .factor-display {
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #4caf50;
     font-weight: bold;
     padding: 1rem 2rem;
-    background: linear-gradient(45deg, #e8f5e8, #f1f8e9);
+    background: linear-gradient(45deg, rgba(232, 245, 232, 0.95), rgba(241, 248, 233, 0.95));
     border-radius: 10px;
     border-left: 4px solid #4caf50;
     text-align: center;
@@ -209,6 +209,7 @@
     animation: slideDown 0.3s ease-out;
     z-index: 1000;
     min-width: 300px;
+    max-width: 80%;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(5px);
 }
@@ -218,14 +219,14 @@
 }
 
 .factor-display.complete {
-    background: linear-gradient(45deg, #fff3e0, #ffecb3);
+    background: linear-gradient(45deg, rgba(255, 243, 224, 0.95), rgba(255, 236, 179, 0.95));
     border-left: 4px solid #ff9800;
     color: #e65100;
     animation: celebration 0.8s ease-out;
 }
 
 .factor-display.loading {
-    background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+    background: linear-gradient(45deg, rgba(227, 242, 253, 0.95), rgba(187, 222, 251, 0.95));
     border-left: 4px solid #2196f3;
     color: #0d47a1;
     animation: pulse 1.2s infinite ease-in-out;
@@ -267,7 +268,7 @@
 @keyframes slideDown {
     from {
         opacity: 0;
-        transform: translate(-50%, -60%);
+        transform: translate(-50%, -70%);
     }
     to {
         opacity: 1;
@@ -310,7 +311,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-    margin: 1.5rem 0;
+    margin: 3rem 0 2rem 0; /* 上部マージンを増やして因数分解表示とのスペースを確保 */
+    padding-top: 1rem;
 }
 
 .control-group {
@@ -360,9 +362,17 @@
     
     .game-controls {
         grid-template-columns: 1fr;
+    }    
+    .factor-display {
+        font-size: 1.2rem;
+        top: 15%;
+        min-width: 250px;
+        max-width: 90%;
+        padding: 0.8rem 1.5rem;
     }
     
-    .factor-display {
-        font-size: 1.4rem;
+    .number-display {
+        font-size: 3rem;
+        margin: 2rem 0;
     }
 }

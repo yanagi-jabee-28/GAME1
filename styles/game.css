@@ -13,7 +13,7 @@
     font-weight: bold;
     color: #4a90e2;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
+    margin: 3rem 0; /* 上下マージンを増やして因数分解表示とのスペースを確保 */
     padding: 1rem;
     background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
     background-clip: text;
