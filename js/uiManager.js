@@ -112,13 +112,13 @@ export class UIManager {
      * @param {number} number - 表示する数字
      * @param {Array} factors - 因数の配列（オプション）
      */
-    displayNumberWithFactors(number, factors = null) {
-        this.displayNumber(number);
+    displayNumberWithFactors(number, factors = null) {        this.displayNumber(number);
         
         if (factors && this.elements.factorDisplay) {
             const factorText = factors.join(' × ');
             this.elements.factorDisplay.textContent = `= ${factorText}`;
             this.elements.factorDisplay.style.display = 'block';
+            this.elements.factorDisplay.style.opacity = '1';
             Utils.addTemporaryClass(this.elements.factorDisplay, 'animate', 500);
         }
     }

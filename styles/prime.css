@@ -146,9 +146,10 @@
     font-weight: bold;
     padding: 0.8rem 1.5rem;
     border-radius: 25px;
-    z-index: 1000;
+    z-index: 100;
     animation: floatUp 2s ease-out forwards;
     pointer-events: none;
+    white-space: nowrap;
 }
 
 .floating-text.success {
@@ -193,36 +194,37 @@
 
 /* 因数分解表示 */
 .factor-display {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.6rem;
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    font-size: 1.4rem;
     color: #4caf50;
     font-weight: bold;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.5rem;
     background: linear-gradient(45deg, rgba(232, 245, 232, 0.95), rgba(241, 248, 233, 0.95));
     border-radius: 10px;
     border-left: 4px solid #4caf50;
     text-align: center;
     display: none;
-    animation: slideDown 0.3s ease-out;
-    z-index: 1000;
-    min-width: 300px;
-    max-width: 80%;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(5px);
+    opacity: 0;
+    animation: slideDown 0.3s ease-out forwards;
+    z-index: auto;
+    width: 100%;
+    max-width: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem 0;
 }
 
 .factor-display.animate {
-    animation: slideDown 0.3s ease-out;
+    animation: slideDown 0.3s ease-out forwards;
 }
 
 .factor-display.complete {
     background: linear-gradient(45deg, rgba(255, 243, 224, 0.95), rgba(255, 236, 179, 0.95));
     border-left: 4px solid #ff9800;
     color: #e65100;
-    animation: celebration 0.8s ease-out;
+    animation: celebration 0.8s ease-out forwards;
 }
 
 .factor-display.loading {
@@ -235,44 +237,44 @@
 @keyframes pulse {
     0% {
         opacity: 0.7;
-        transform: translate(-50%, -50%) scale(0.98);
+        transform: scale(0.98);
     }
     50% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.02);
+        transform: scale(1.02);
     }
     100% {
         opacity: 0.7;
-        transform: translate(-50%, -50%) scale(0.98);
+        transform: scale(0.98);
     }
 }
 
 @keyframes celebration {
     0% {
-        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        transform: scale(1) rotate(0deg);
     }
     25% {
-        transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
+        transform: scale(1.1) rotate(2deg);
     }
     50% {
-        transform: translate(-50%, -50%) scale(1.05) rotate(-1deg);
+        transform: scale(1.05) rotate(-1deg);
     }
     75% {
-        transform: translate(-50%, -50%) scale(1.08) rotate(1deg);
+        transform: scale(1.08) rotate(1deg);
     }
     100% {
-        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        transform: scale(1) rotate(0deg);
     }
 }
 
 @keyframes slideDown {
     from {
         opacity: 0;
-        transform: translate(-50%, -70%);
+        transform: translateY(-20px);
     }
     to {
         opacity: 1;
-        transform: translate(-50%, -50%);
+        transform: translateY(0);
     }
 }
 
@@ -311,8 +313,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-    margin: 3rem 0 2rem 0; /* 上部マージンを増やして因数分解表示とのスペースを確保 */
-    padding-top: 1rem;
+    margin-top: auto; /* フレックスボックスで下部に押し込む */
+    margin-bottom: 0;
+    padding-top: 3rem; /* 上部にパディングを増やして計算表示用のスペースを確保 */
 }
 
 .control-group {
@@ -362,17 +365,20 @@
     
     .game-controls {
         grid-template-columns: 1fr;
-    }    
-    .factor-display {
-        font-size: 1.2rem;
-        top: 15%;
-        min-width: 250px;
-        max-width: 90%;
-        padding: 0.8rem 1.5rem;
+    }      .factor-display {
+        font-size: 1.1rem;
+        padding: 0.6rem 1rem;
+        margin: 0.5rem 0;
     }
-    
-    .number-display {
+      .number-display {
         font-size: 3rem;
         margin: 2rem 0;
+    }
+    
+    .calculation-area {
+        min-height: 80px;
+        margin: 0.5rem 0;
+        padding: 0.8rem;
+        font-size: 0.9rem;
     }
 }

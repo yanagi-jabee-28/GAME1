@@ -132,15 +132,15 @@ export class PrimeGame {    constructor() {
      */
     updateFactorDisplay() {
         const factorDisplay = document.getElementById('factor-display');
-        if (!factorDisplay) return;
-
-        if (this.isShowingFactors && this.currentResult) {
+        if (!factorDisplay) return;        if (this.isShowingFactors && this.currentResult) {
             const factors = this.currentResult.primes.join(' × ');
             factorDisplay.textContent = `= ${factors}`;
             factorDisplay.style.display = 'block';
+            factorDisplay.style.opacity = '1';
             Utils.addTemporaryClass(factorDisplay, 'animate', 500);
         } else {
             factorDisplay.style.display = 'none';
+            factorDisplay.style.opacity = '0';
         }
     }
 
@@ -338,16 +338,15 @@ export class PrimeGame {    constructor() {
      * フローティングテキストを作成
      * @param {string} text - 表示するテキスト
      * @param {string} type - タイプ（'success' または 'error'）
-     */
-    createFloatingText(text, type) {
-        const gameArea = document.querySelector('.game-area');
-        if (!gameArea) return;
+     */    createFloatingText(text, type) {
+        const calculationArea = document.getElementById('calculation-area');
+        if (!calculationArea) return;
 
         const floatingText = document.createElement('div');
         floatingText.className = `floating-text ${type}`;
         floatingText.textContent = text;
         
-        gameArea.appendChild(floatingText);
+        calculationArea.appendChild(floatingText);
         
         // アニメーション後に削除
         setTimeout(() => {
@@ -355,7 +354,7 @@ export class PrimeGame {    constructor() {
                 floatingText.parentNode.removeChild(floatingText);
             }
         }, 2000);
-    }    /**
+    }/**
      * 使用済み因数の表示を更新
      */
     updateUsedFactorsDisplay() {
@@ -378,11 +377,12 @@ export class PrimeGame {    constructor() {
                 }
                 factorDisplay.classList.remove('complete');
             }
-            
-            factorDisplay.style.display = 'block';
+              factorDisplay.style.display = 'block';
+            factorDisplay.style.opacity = '1';
             Utils.addTemporaryClass(factorDisplay, 'animate', 500);
         } else if (factorDisplay && this.usedFactors.length === 0) {
             factorDisplay.style.display = 'none';
+            factorDisplay.style.opacity = '0';
         }
     }    /**
      * 因数分解完了時の処理
@@ -402,10 +402,11 @@ export class PrimeGame {    constructor() {
         this.createFloatingText('🎉 因数分解完了！', 'success');
         
         // 1.5秒後に次の問題の準備中メッセージを表示
-        setTimeout(() => {
-            const factorDisplay = document.getElementById('factor-display');
+        setTimeout(() => {            const factorDisplay = document.getElementById('factor-display');
             if (factorDisplay) {
                 factorDisplay.textContent = '次の問題を準備中...';
+                factorDisplay.style.display = 'block';
+                factorDisplay.style.opacity = '1';
                 factorDisplay.classList.add('loading');
             }
             
