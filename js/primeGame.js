@@ -335,42 +335,47 @@ export class PrimeGame {    constructor() {
                 floatingText.parentNode.removeChild(floatingText);
             }
         }, 2000);
-    }
-
-    /**
+    }    /**
      * 使用済み因数の表示を更新
      */
     updateUsedFactorsDisplay() {
         const factorDisplay = document.getElementById('factor-display');
         if (factorDisplay && this.usedFactors.length > 0) {
+            // 元の数字を計算
+            const originalNumber = this.currentResult.product;
             const factorText = this.usedFactors.join(' × ');
-            const remainingText = this.currentNumber === 1 ? '' : ` × ${this.currentNumber}`;
-            factorDisplay.textContent = `使用済み: ${factorText}${remainingText}`;
+            
+            if (this.currentNumber === 1) {
+                // 因数分解完了
+                factorDisplay.textContent = `✨ ${originalNumber} = ${factorText}`;
+                factorDisplay.classList.add('complete');
+            } else {
+                // 進行中の表示: 元の数字から使用済み因数を示す
+                factorDisplay.textContent = `${originalNumber} ÷ ${factorText} = ${this.currentNumber}`;
+                factorDisplay.classList.remove('complete');
+            }
+            
             factorDisplay.style.display = 'block';
             Utils.addTemporaryClass(factorDisplay, 'animate', 500);
         } else if (factorDisplay && this.usedFactors.length === 0) {
             factorDisplay.style.display = 'none';
         }
-    }
-
-    /**
+    }    /**
      * 因数分解完了時の処理
      */
     onFactorizationComplete() {
-        const factorDisplay = document.getElementById('factor-display');
-        if (factorDisplay) {
-            factorDisplay.textContent = `🎉 完了！ ${this.currentResult.product} = ${this.usedFactors.join(' × ')}`;
-            factorDisplay.classList.add('complete');
-            setTimeout(() => {
-                factorDisplay.classList.remove('complete');
-            }, 2000);
-        }
-          // 素数ボタンを無効化
+        // 使用済み因数表示を更新（完了状態）
+        this.updateUsedFactorsDisplay();
+        
+        // 素数ボタンを無効化
         const primeButtons = document.querySelectorAll('.btn-prime');
         primeButtons.forEach(button => {
             button.disabled = true;
             button.classList.add('disabled');
         });
+
+        // 完了フィードバック
+        this.createFloatingText('🎉 因数分解完了！', 'success');
     }
 
     /**
