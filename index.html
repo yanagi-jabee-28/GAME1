@@ -3,46 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>算数学習ゲーム - 数字表示</title>
+    <title>算数学習ゲーム - 素数の積</title>
     
     <!-- CSS読み込み -->
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/game.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/history.css">
+    <link rel="stylesheet" href="styles/prime.css">
 </head>
 <body>
     <div class="container">
-        <h1>🎲 数字表示ゲーム</h1>
+        <h1>🔢 素数の積ゲーム</h1>
+        
+        <!-- レベル選択セクション -->
+        <div class="level-selector">
+            <h3>📊 難易度選択</h3>
+            <div class="level-controls">
+                <select id="level-select" class="level-select">
+                    <option value="1">レベル 1</option>
+                    <option value="2">レベル 2</option>
+                    <option value="3">レベル 3</option>
+                    <option value="4">レベル 4</option>
+                    <option value="5">レベル 5</option>
+                </select>
+                <div id="current-level" class="current-level">
+                    レベル 1 (素数: 2, 3, 5, 7)
+                </div>
+            </div>
+        </div>
+
+        <!-- 素数ボタンセクション -->
+        <div class="prime-section">
+            <h3>🎯 使用可能な素数</h3>
+            <div id="prime-buttons" class="prime-buttons">
+                <!-- 素数ボタンがここに動的に生成されます -->
+            </div>
+        </div>
         
         <div class="game-area">
             <div id="number-display" class="number-display">
-                数字を生成してください
+                素数の積を生成してください
             </div>
             
-            <div class="controls">
-                <button id="generate-btn" class="btn btn-primary">
-                    🎯 数字を生成
-                </button>
-                <button id="history-btn" class="btn btn-secondary">
-                    📝 履歴を見る
-                </button>
-                <button id="settings-btn" class="btn btn-success">
-                    ⚙️ 設定
-                </button>
+            <!-- 因数分解表示 -->
+            <div id="factor-display" class="factor-display" style="display: none;">
+                = 2 × 3 × 5
+            </div>
+            
+            <div class="game-controls">
+                <div class="control-group">
+                    <button id="generate-btn" class="btn btn-primary">
+                        🎲 素数の積を生成
+                    </button>
+                    <button id="show-factors-btn" class="btn btn-success" disabled>
+                        👁️ 因数分解を見る
+                    </button>
+                </div>
+                <div class="control-group">
+                    <button id="history-btn" class="btn btn-secondary">
+                        📝 履歴を見る
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- 履歴セクション -->
         <div id="history-section" style="display: none;">
-            <h3>生成履歴</h3>
+            <h3>🏆 生成履歴</h3>
             <ul id="history-list" class="history-list">
                 <!-- 履歴がここに表示されます -->
             </ul>
         </div>
 
         <div style="margin-top: 2rem; color: #666; font-size: 0.9rem;">
-            💡 ヒント: スペースキーでも数字を生成できます
+            💡 ヒント: スペースキーで生成、Fキーで因数分解表示
         </div>
     </div>
 

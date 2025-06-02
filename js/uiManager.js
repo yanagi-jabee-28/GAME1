@@ -16,6 +16,13 @@ export class UIManager {
         this.elements.historyBtn = document.getElementById('history-btn');
         this.elements.settingsBtn = document.getElementById('settings-btn');
         this.elements.historyList = document.getElementById('history-list');
+        
+        // 素数ゲーム用の要素
+        this.elements.levelSelect = document.getElementById('level-select');
+        this.elements.currentLevel = document.getElementById('current-level');
+        this.elements.primeButtons = document.getElementById('prime-buttons');
+        this.elements.factorDisplay = document.getElementById('factor-display');
+        this.elements.showFactorsBtn = document.getElementById('show-factors-btn');
     }
 
     /**
@@ -81,6 +88,38 @@ export class UIManager {
         const element = document.getElementById(elementId);
         if (element) {
             element.style.display = visible ? 'block' : 'none';
+        }
+    }
+
+    /**
+     * レベル選択のオプションを生成
+     * @param {Array} levelInfo - レベル情報の配列
+     */
+    populateLevelSelect(levelInfo) {
+        if (this.elements.levelSelect) {
+            this.elements.levelSelect.innerHTML = '';
+            levelInfo.forEach(info => {
+                const option = document.createElement('option');
+                option.value = info.level;
+                option.textContent = `レベル ${info.level}`;
+                this.elements.levelSelect.appendChild(option);
+            });
+        }
+    }
+
+    /**
+     * 数字と因数分解を同時に表示
+     * @param {number} number - 表示する数字
+     * @param {Array} factors - 因数の配列（オプション）
+     */
+    displayNumberWithFactors(number, factors = null) {
+        this.displayNumber(number);
+        
+        if (factors && this.elements.factorDisplay) {
+            const factorText = factors.join(' × ');
+            this.elements.factorDisplay.textContent = `= ${factorText}`;
+            this.elements.factorDisplay.style.display = 'block';
+            Utils.addTemporaryClass(this.elements.factorDisplay, 'animate', 500);
         }
     }
 }

@@ -1,0 +1,216 @@
+/* 素数ゲーム専用スタイル */
+
+/* レベル選択エリア */
+.level-selector {
+    background: #e8f4fd;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid #2196f3;
+}
+
+.level-selector h3 {
+    color: #1976d2;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.level-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.level-select {
+    padding: 0.5rem 1rem;
+    border: 2px solid #2196f3;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.level-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+}
+
+.current-level {
+    color: #1976d2;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* 素数ボタンエリア */
+.prime-section {
+    background: #f3e5f5;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid #9c27b0;
+}
+
+.prime-section h3 {
+    color: #7b1fa2;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.prime-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-prime {
+    background: linear-gradient(45deg, #e91e63, #9c27b0);
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 50px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+}
+
+.btn-prime:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+}
+
+.btn-prime:active {
+    transform: translateY(-1px) scale(1.05);
+}
+
+/* 因数分解表示 */
+.factor-display {
+    font-size: 1.8rem;
+    color: #4caf50;
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: linear-gradient(45deg, #e8f5e8, #f1f8e9);
+    border-radius: 10px;
+    border-left: 4px solid #4caf50;
+    text-align: center;
+    display: none;
+    animation: slideDown 0.3s ease-out;
+}
+
+.factor-display.animate {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 履歴アイテムの改良 */
+.history-item {
+    background: white;
+    margin: 0.8rem 0;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #ff9800;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.history-product {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.history-factors {
+    color: #4caf50;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.history-level {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ゲームコントロール強化 */
+.game-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* アニメーション改良 */
+.number-display.animate {
+    animation: numberPop 0.6s ease-out;
+}
+
+@keyframes numberPop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* レスポンシブデザイン強化 */
+@media (max-width: 768px) {
+    .level-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .level-select {
+        width: 100%;
+    }
+    
+    .prime-buttons {
+        justify-content: center;
+    }
+    
+    .btn-prime {
+        min-width: 45px;
+        min-height: 45px;
+        font-size: 1rem;
+    }
+    
+    .game-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .factor-display {
+        font-size: 1.4rem;
+    }
+}
