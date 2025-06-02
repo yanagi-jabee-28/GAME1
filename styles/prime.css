@@ -217,6 +217,28 @@
     animation: celebration 0.8s ease-out;
 }
 
+.factor-display.loading {
+    background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+    border-left: 4px solid #2196f3;
+    color: #0d47a1;
+    animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+}
+
 @keyframes celebration {
     0% {
         transform: scale(1) rotate(0deg);

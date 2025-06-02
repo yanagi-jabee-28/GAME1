@@ -364,7 +364,7 @@ export class PrimeGame {    constructor() {
         } else if (factorDisplay && this.usedFactors.length === 0) {
             factorDisplay.style.display = 'none';
         }
-    }/**
+    }    /**
      * 因数分解完了時の処理
      */
     onFactorizationComplete() {
@@ -380,6 +380,23 @@ export class PrimeGame {    constructor() {
 
         // 完了フィードバック
         this.createFloatingText('🎉 因数分解完了！', 'success');
+        
+        // 1.5秒後に次の問題の準備中メッセージを表示
+        setTimeout(() => {
+            const factorDisplay = document.getElementById('factor-display');
+            if (factorDisplay) {
+                factorDisplay.textContent = '次の問題を準備中...';
+                factorDisplay.classList.add('loading');
+            }
+            
+            // 0.5秒後に新しい数字を自動生成（合計2秒後）
+            setTimeout(() => {
+                if (factorDisplay) {
+                    factorDisplay.classList.remove('loading');
+                }
+                this.generatePrimeProduct();
+            }, 500);
+        }, 1500);
     }
 
     /**
