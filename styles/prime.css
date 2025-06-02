@@ -92,6 +92,39 @@
     transform: translateY(-1px) scale(1.05);
 }
 
+.btn-prime.available {
+    background: linear-gradient(45deg, #4caf50, #81c784);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    animation: pulse 1.5s infinite;
+}
+
+.btn-prime.unavailable {
+    background: linear-gradient(45deg, #9e9e9e, #757575);
+    box-shadow: 0 4px 15px rgba(158, 158, 158, 0.3);
+    cursor: not-allowed;
+}
+
+.btn-prime.disabled {
+    background: linear-gradient(45deg, #e0e0e0, #bdbdbd);
+    color: #9e9e9e;
+    box-shadow: 0 2px 8px rgba(189, 189, 189, 0.2);
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+    50% {
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        transform: scale(1.05);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+}
+
 /* 因数分解表示 */
 .factor-display {
     font-size: 1.8rem;
@@ -109,6 +142,31 @@
 
 .factor-display.animate {
     animation: slideDown 0.3s ease-out;
+}
+
+.factor-display.complete {
+    background: linear-gradient(45deg, #fff3e0, #ffecb3);
+    border-left: 4px solid #ff9800;
+    color: #e65100;
+    animation: celebration 0.8s ease-out;
+}
+
+@keyframes celebration {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.1) rotate(2deg);
+    }
+    50% {
+        transform: scale(1.05) rotate(-1deg);
+    }
+    75% {
+        transform: scale(1.08) rotate(1deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
 }
 
 @keyframes slideDown {

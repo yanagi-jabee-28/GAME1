@@ -3,17 +3,17 @@ import { PrimeManager } from './primeManager.js';
 import { UIManager } from './uiManager.js';
 import { Utils } from './utils.js';
 
-export class PrimeGame {
-    constructor() {
+export class PrimeGame {    constructor() {
         this.primeManager = new PrimeManager();
         this.uiManager = new UIManager();
         this.currentResult = null;
         this.gameHistory = [];
         this.isShowingFactors = false;
+        this.currentNumber = null; // 現在表示されている数字
+        this.remainingFactors = []; // 残りの因数
+        this.usedFactors = []; // 使用済みの因数
         this.initialize();
-    }
-
-    /**
+    }    /**
      * ゲームを初期化
      */
     initialize() {
@@ -22,6 +22,7 @@ export class PrimeGame {
         this.updateLevelDisplay();
         this.updatePrimeButtons();
         this.updateShowFactorsButton();
+        this.updateUsedFactorsDisplay();
         this.uiManager.displayPlaceholder('素数の積を生成してください');
         console.log('素数ゲームが初期化されました');
     }
@@ -78,14 +79,16 @@ export class PrimeGame {
                 this.toggleFactors();
             }
         });
-    }
-
-    /**
+    }    /**
      * 素数の積をランダム生成
      */
     generatePrimeProduct() {
         this.currentResult = this.primeManager.generateRandomProduct();
-        this.uiManager.displayNumber(this.currentResult.product);
+        this.currentNumber = this.currentResult.product;
+        this.remainingFactors = [...this.currentResult.primes];
+        this.usedFactors = [];
+        
+        this.uiManager.displayNumber(this.currentNumber);
         
         // 履歴に追加
         this.gameHistory.unshift({
@@ -104,6 +107,7 @@ export class PrimeGame {
         this.isShowingFactors = false;
         this.updateFactorDisplay();
         this.updateShowFactorsButton();
+        this.updatePrimeButtons();
         
         // 履歴が表示されている場合は更新
         const historySection = document.getElementById('history-section');
@@ -149,9 +153,7 @@ export class PrimeGame {
             btn.textContent = this.isShowingFactors ? '🙈 因数分解を隠す' : '👁️ 因数分解を見る';
             btn.disabled = !this.currentResult;
         }
-    }
-
-    /**
+    }    /**
      * レベルを変更
      * @param {number} level - 新しいレベル
      */
@@ -162,6 +164,9 @@ export class PrimeGame {
         
         // 現在の結果をリセット
         this.currentResult = null;
+        this.currentNumber = null;
+        this.remainingFactors = [];
+        this.usedFactors = [];
         this.isShowingFactors = false;
         this.updateFactorDisplay();
         this.updateShowFactorsButton();
@@ -177,9 +182,7 @@ export class PrimeGame {
             const primes = this.primeManager.getCurrentPrimes().join(', ');
             levelDisplay.textContent = `レベル ${this.primeManager.getCurrentLevel()} (素数: ${primes})`;
         }
-    }
-
-    /**
+    }    /**
      * 素数ボタンを更新
      */
     updatePrimeButtons() {
@@ -195,13 +198,109 @@ export class PrimeGame {
             button.textContent = prime;
             button.title = `素数 ${prime}`;
             
-            // クリックイベント（将来の拡張用）
+            // 現在の数字が存在し、その素数で割り切れるかチェック
+            const canDivide = this.currentNumber && this.currentNumber % prime === 0;
+            
+            // ボタンの状態を設定
+            if (!this.currentNumber) {
+                button.disabled = true;
+                button.classList.add('disabled');
+            } else if (canDivide) {
+                button.classList.add('available');
+            } else {
+                button.classList.add('unavailable');
+            }
+            
+            // クリックイベント
             button.addEventListener('click', () => {
-                console.log(`素数 ${prime} がクリックされました`);
-                // 今後、素数を使った計算ゲームなどに拡張可能
+                this.divideBePrime(prime);
             });
             
             primeButtonsContainer.appendChild(button);
+        });
+    }
+
+    /**
+     * ゲーム履歴の表示/非表示を切り替え
+     */
+    toggleHistory() {
+        const historySection = document.getElementById('history-section');
+        if (historySection) {
+            const isVisible = historySection.style.display !== 'none';
+            historySection.style.display = isVisible ? 'none' : 'block';
+            
+            if (!isVisible) {
+                this.displayGameHistory();
+            }
+        }
+    }    /**
+     * 指定した素数で現在の数字を割る
+     * @param {number} prime - 割る素数
+     */
+    divideBePrime(prime) {
+        if (!this.currentNumber || this.currentNumber % prime !== 0) {
+            // 割り切れない場合は何もしない
+            return;
+        }
+
+        // 数字を割る
+        this.currentNumber = this.currentNumber / prime;
+        this.usedFactors.push(prime);
+        
+        // 残りの因数から削除
+        const factorIndex = this.remainingFactors.indexOf(prime);
+        if (factorIndex !== -1) {
+            this.remainingFactors.splice(factorIndex, 1);
+        }
+
+        // 新しい数字を表示
+        this.uiManager.displayNumber(this.currentNumber);
+        
+        // 使用した因数を表示
+        this.updateUsedFactorsDisplay();
+        
+        // 素数ボタンの状態を更新
+        this.updatePrimeButtons();
+        
+        // 1になったら完了
+        if (this.currentNumber === 1) {
+            this.onFactorizationComplete();
+        }
+    }
+
+    /**
+     * 使用済み因数の表示を更新
+     */
+    updateUsedFactorsDisplay() {
+        const factorDisplay = document.getElementById('factor-display');
+        if (factorDisplay && this.usedFactors.length > 0) {
+            const factorText = this.usedFactors.join(' × ');
+            const remainingText = this.currentNumber === 1 ? '' : ` × ${this.currentNumber}`;
+            factorDisplay.textContent = `使用済み: ${factorText}${remainingText}`;
+            factorDisplay.style.display = 'block';
+            Utils.addTemporaryClass(factorDisplay, 'animate', 500);
+        } else if (factorDisplay && this.usedFactors.length === 0) {
+            factorDisplay.style.display = 'none';
+        }
+    }
+
+    /**
+     * 因数分解完了時の処理
+     */
+    onFactorizationComplete() {
+        const factorDisplay = document.getElementById('factor-display');
+        if (factorDisplay) {
+            factorDisplay.textContent = `🎉 完了！ ${this.currentResult.product} = ${this.usedFactors.join(' × ')}`;
+            factorDisplay.classList.add('complete');
+            setTimeout(() => {
+                factorDisplay.classList.remove('complete');
+            }, 2000);
+        }
+          // 素数ボタンを無効化
+        const primeButtons = document.querySelectorAll('.btn-prime');
+        primeButtons.forEach(button => {
+            button.disabled = true;
+            button.classList.add('disabled');
         });
     }
 
@@ -255,6 +354,9 @@ export class PrimeGame {
      */
     reset() {
         this.currentResult = null;
+        this.currentNumber = null;
+        this.remainingFactors = [];
+        this.usedFactors = [];
         this.gameHistory = [];
         this.isShowingFactors = false;
         this.primeManager.setLevel(1);
