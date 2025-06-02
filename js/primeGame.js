@@ -340,57 +340,47 @@ export class PrimeGame {
      * @param {string} text - 表示するテキスト
      * @param {string} type - タイプ（'success' または 'error'）
      */    createFloatingText(text, type) {
-        const calculationArea = document.getElementById('calculation-area');
-        if (!calculationArea) return;
+		const calculationArea = document.getElementById('calculation-area');
+		if (!calculationArea) return;
 
-        const floatingText = document.createElement('div');
-        floatingText.className = `floating-text ${type}`;
-        floatingText.textContent = text;
-        
-        // 既存の要素を避けるための位置調整
-        this.positionFloatingText(floatingText, calculationArea);
-        
-        calculationArea.appendChild(floatingText);
-        
-        // 既存のフローティングテキストの数に応じて表示時間を調整
-        const existingTexts = calculationArea.querySelectorAll('.floating-text').length;
-        const displayTime = 2000 + (existingTexts * 200); // 基本2秒 + 重複分
-        
-        // アニメーション後に削除
-        setTimeout(() => {
-            if (floatingText.parentNode) {
-                floatingText.parentNode.removeChild(floatingText);
-            }
-        }, displayTime);
-    }
+		const floatingText = document.createElement('div');
+		floatingText.className = `floating-text ${type}`;
+		floatingText.textContent = text;
 
-    /**
-     * フローティングテキストの位置を既存要素と重ならないように調整
+		// 既存の要素を避けるための位置調整
+		this.positionFloatingText(floatingText, calculationArea);
+
+		calculationArea.appendChild(floatingText);
+
+		// アニメーション後に削除
+		setTimeout(() => {
+			if (floatingText.parentNode) {
+				floatingText.parentNode.removeChild(floatingText);
+			}
+		}, 2000);
+	}    /**
+     * フローティングテキストの位置を調整（正解は重ねる、不正解は避ける）
      */    positionFloatingText(floatingText, calculationArea) {
-		const factorDisplay = document.getElementById('factor-display');
 		const existingFloatingTexts = calculationArea.querySelectorAll('.floating-text');
-		let topOffset = 50; // デフォルトは中央（50%）
-
-		// 因数分解表示が見えている場合、その下に配置
-		if (factorDisplay && factorDisplay.style.display !== 'none' && factorDisplay.offsetHeight > 0) {
-			// 因数分解表示の高さ + マージンを考慮
-			const factorHeight = factorDisplay.offsetHeight;
-			const calculationHeight = calculationArea.offsetHeight;
-
-			// 因数分解表示の下に配置（パーセンテージで計算）
-			topOffset = Math.min(75, 50 + (factorHeight / calculationHeight) * 100 + 15);
+		
+		// 計算エリアの上部（数字表示と計算式の間）に配置
+		let topPosition = 10; // 上部から10px
+		
+		// 正解メッセージの場合は重ねても良い、不正解メッセージの場合は避ける
+		if (floatingText.classList.contains('error')) {
+			// 不正解の場合は既存のテキストを避けて配置
+			if (existingFloatingTexts.length > 0) {
+				topPosition = 10 + (existingFloatingTexts.length * 45); // 45px間隔で配置
+			}
+		} else {
+			// 正解や情報メッセージの場合は基本位置に配置（重ねる）
+			topPosition = 10;
 		}
 
-		// 既存のフローティングテキストがある場合、さらに下にずらす
-		if (existingFloatingTexts.length > 0) {
-			topOffset = Math.min(85, topOffset + (existingFloatingTexts.length * 8));
-		}
-
-		floatingText.style.top = `${topOffset}%`;
-
-		// 少し左右にランダムにずらして重なりを避ける
-		const leftOffset = 50 + (Math.random() - 0.5) * 20; // 40%-60%の範囲
-		floatingText.style.left = `${leftOffset}%`;
+		floatingText.style.top = `${topPosition}px`;
+		
+		// 水平方向は中央
+		floatingText.style.left = '50%';
 	}/**
      * 使用済み因数の表示を更新
      */
@@ -438,22 +428,13 @@ export class PrimeGame {
         setTimeout(() => {
             this.createFloatingText('🎉 因数分解完了！', 'success');
         }, 300);
-        
-        // 1.5秒後に次の問題の準備中メッセージを表示
+          // 1.5秒後に次の問題の準備中メッセージを表示
         setTimeout(() => {
-            const factorDisplay = document.getElementById('factor-display');
-            if (factorDisplay) {
-                factorDisplay.textContent = '次の問題を準備中...';
-                factorDisplay.style.display = 'block';
-                factorDisplay.style.opacity = '1';
-                factorDisplay.classList.add('loading');
-            }
+            // フローティングテキストとして準備中メッセージを表示
+            this.createFloatingText('🔄 次の問題を準備中...', 'info');
             
             // 0.5秒後に新しい数字を自動生成（合計2秒後）
             setTimeout(() => {
-                if (factorDisplay) {
-                    factorDisplay.classList.remove('loading');
-                }
                 this.generatePrimeProduct();
             }, 500);
         }, 1500);
