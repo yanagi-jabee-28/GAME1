@@ -1,0 +1,99 @@
+/* コンポーネントスタイル - ボタン、フォーム要素など */
+
+/* ボタンコンポーネント */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(145deg, #4299e1, #3182ce);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(145deg, #3182ce, #2c5282);
+}
+
+.btn-secondary {
+    background: linear-gradient(145deg, #a0aec0, #718096);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(145deg, #718096, #4a5568);
+}
+
+.btn-success {
+    background: linear-gradient(145deg, #48bb78, #38a169);
+    color: white;
+}
+
+.btn-success:hover {
+    background: linear-gradient(145deg, #38a169, #2f855a);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* フォーム要素 */
+.select {
+    padding: 0.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 5px;
+    background: white;
+    font-size: 1rem;
+}
+
+.range {
+    width: 150px;
+    margin: 0.5rem 0;
+}
+
+/* 設定エリア */
+.settings {
+    background: #f7fafc;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.setting-group label {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+#speedValue {
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 600;
+}

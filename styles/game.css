@@ -1,0 +1,43 @@
+/* ゲーム固有のスタイル - 数字表示とゲームエリア */
+
+/* ゲームエリア */
+.game-area {
+    margin: 2rem 0;
+}
+
+/* 数字表示エリア */
+.number-display {
+    background: linear-gradient(145deg, #f7fafc, #edf2f7);
+    border-radius: 15px;
+    padding: 3rem 2rem;
+    margin: 2rem 0;
+    box-shadow: 
+        inset 5px 5px 10px rgba(0, 0, 0, 0.1),
+        inset -5px -5px 10px rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+}
+
+.number-display:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 5px 5px 10px rgba(0, 0, 0, 0.1),
+        inset -5px -5px 10px rgba(255, 255, 255, 0.7),
+        0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.number {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #2d3748;
+    display: inline-block;
+    animation: numberAppear 0.5s ease-out;
+}
+
+/* コントロールボタンエリア */
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}

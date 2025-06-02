@@ -12,8 +12,10 @@ HTMLとCSS、JavaScriptで作成した算数を楽しく学べるゲームです
 - 手動生成ボタン
 - 自動表示モード（速度調整可能）
 - 一時停止機能
+- 設定の自動保存（ローカルストレージ）
 - レスポンシブデザイン
 - キーボードショートカット対応
+- デバッグモード対応
 
 **操作方法:**
 - **スペースキー**: 新しい数字を生成
@@ -24,13 +26,36 @@ HTMLとCSS、JavaScriptで作成した算数を楽しく学べるゲームです
 
 ```
 GAME1/
-├── index.html          # メインHTMLファイル
-├── styles/
-│   └── main.css       # メインCSSファイル
-├── js/
-│   └── main.js        # メインJavaScriptファイル
-└── README.md          # このファイル
+├── index.html              # メインHTMLファイル
+├── styles/                 # CSSファイル群
+│   ├── main.css           # メイン（インポート用）
+│   ├── base.css           # ベーススタイル
+│   ├── components.css     # コンポーネントスタイル
+│   ├── game.css           # ゲーム固有スタイル
+│   ├── animations.css     # アニメーション効果
+│   └── responsive.css     # レスポンシブデザイン
+├── js/                     # JavaScriptファイル群
+│   ├── main.js            # メインゲームロジック
+│   ├── utils.js           # ユーティリティ関数
+│   ├── animations.js      # アニメーション管理
+│   └── settings.js        # 設定管理
+└── README.md              # このファイル
 ```
+
+### ファイル分割の利点
+
+**CSSファイル分割:**
+- `base.css`: 基本スタイル（リセット、レイアウト）
+- `components.css`: 再利用可能なコンポーネント（ボタン、フォーム）
+- `game.css`: ゲーム特有のスタイル
+- `animations.css`: アニメーション効果
+- `responsive.css`: レスポンシブデザイン
+
+**JavaScriptファイル分割:**
+- `main.js`: メインゲームロジック
+- `utils.js`: 汎用ユーティリティ関数
+- `animations.js`: UI アニメーション管理
+- `settings.js`: 設定値の保存・読み込み
 
 ## 使用方法
 

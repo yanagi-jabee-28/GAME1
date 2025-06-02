@@ -8,15 +8,16 @@ class NumberDisplayGame {
         this.currentNumber = 0;
         this.isAutoMode = false;
         this.autoInterval = null;
-        this.maxRange = 100;
-        this.speed = 1500; // ミリ秒
+        
+        // 設定管理インスタンスを作成
+        this.settings = new GameSettings();
         
         this.initializeElements();
         this.bindEvents();
+        this.loadInitialSettings();
         this.generateRandomNumber();
     }
-    
-    /**
+      /**
      * DOM要素の初期化
      */
     initializeElements() {
@@ -34,6 +35,16 @@ class NumberDisplayGame {
     }
     
     /**
+     * 初期設定を読み込み
+     */
+    loadInitialSettings() {
+        // 保存された設定を読み込んでUIに反映
+        this.rangeSelect.value = this.settings.getMaxRange();
+        this.speedRange.value = this.settings.getSpeed();
+        this.updateSpeedDisplay();
+    }
+    
+    /**
      * イベントリスナーの設定
      */
     bindEvents() {
@@ -46,15 +57,14 @@ class NumberDisplayGame {
         // キーボードショートカット
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
     }
-    
-    /**
+      /**
      * ランダムな数字を生成して表示
      */
     generateRandomNumber() {
-        const newNumber = Math.floor(Math.random() * this.maxRange) + 1;
+        const newNumber = GameUtils.getRandomInt(1, this.settings.getMaxRange());
         this.currentNumber = newNumber;
         this.displayNumber(newNumber);
-        this.addNumberAnimation();
+        AnimationManager.addNumberAnimation(this.numberDisplay);
     }
     
     /**
@@ -73,35 +83,8 @@ class NumberDisplayGame {
      * @param {number} number - 数字
      */
     updateNumberColor(number) {
-        const percentage = number / this.maxRange;
-        let color;
-        
-        if (percentage < 0.3) {
-            color = '#48bb78'; // 緑
-        } else if (percentage < 0.7) {
-            color = '#4299e1'; // 青
-        } else {
-            color = '#ed8936'; // オレンジ
-        }
-        
-        this.numberDisplay.style.color = color;
-    }
-    
-    /**
-     * 数字表示のアニメーション
-     */
-    addNumberAnimation() {
-        this.numberDisplay.classList.remove('pulse');
-        
-        // 少し遅延を入れてからアニメーションを開始
-        setTimeout(() => {
-            this.numberDisplay.classList.add('pulse');
-            
-            // アニメーション終了後にクラスを削除
-            setTimeout(() => {
-                this.numberDisplay.classList.remove('pulse');
-            }, 1000);
-        }, 50);
+        const color = GameUtils.getNumberColor(number, this.settings.getMaxRange());
+        AnimationManager.changeNumberColor(this.numberDisplay, color);
     }
     
     /**
@@ -114,15 +97,14 @@ class NumberDisplayGame {
             this.startAutoMode();
         }
     }
-    
-    /**
+      /**
      * 自動表示モードを開始
      */
     startAutoMode() {
         this.isAutoMode = true;
         this.autoInterval = setInterval(() => {
             this.generateRandomNumber();
-        }, this.speed);
+        }, this.settings.getSpeed());
         
         // ボタンの状態を更新
         this.autoBtn.textContent = '自動表示停止';
@@ -159,13 +141,12 @@ class NumberDisplayGame {
             this.autoBtn.textContent = '自動表示再開';
         }
     }
-    
-    /**
+      /**
      * 数字の範囲を更新
      * @param {string} range - 新しい範囲
      */
     updateRange(range) {
-        this.maxRange = parseInt(range);
+        this.settings.setMaxRange(range);
         
         // 現在自動モードの場合は再起動
         if (this.isAutoMode) {
@@ -182,7 +163,7 @@ class NumberDisplayGame {
      * @param {string} speed - 新しい速度（ミリ秒）
      */
     updateSpeed(speed) {
-        this.speed = parseInt(speed);
+        this.settings.setSpeed(speed);
         this.updateSpeedDisplay();
         
         // 自動モードが有効な場合は再起動
@@ -196,8 +177,7 @@ class NumberDisplayGame {
      * 速度表示を更新
      */
     updateSpeedDisplay() {
-        const seconds = (this.speed / 1000).toFixed(1);
-        this.speedValue.textContent = `${seconds}秒`;
+        this.speedValue.textContent = GameUtils.formatSpeed(this.settings.getSpeed());
     }
     
     /**
@@ -223,16 +203,16 @@ class NumberDisplayGame {
                 break;
         }
     }
-    
-    /**
+      /**
      * ゲームの統計情報（将来の拡張用）
      */
     getStats() {
         return {
             currentNumber: this.currentNumber,
-            maxRange: this.maxRange,
-            speed: this.speed,
-            isAutoMode: this.isAutoMode
+            maxRange: this.settings.getMaxRange(),
+            speed: this.settings.getSpeed(),
+            isAutoMode: this.isAutoMode,
+            settings: this.settings.getAllSettings()
         };
     }
 }
@@ -242,17 +222,17 @@ class NumberDisplayGame {
  */
 document.addEventListener('DOMContentLoaded', () => {
     // フェードインアニメーション
-    document.querySelector('.container').classList.add('fade-in');
+    const container = document.querySelector('.container');
+    AnimationManager.fadeIn(container);
     
     // ゲームインスタンスを作成
     window.numberGame = new NumberDisplayGame();
     
-    // デバッグ用（開発中のみ）
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.log('数字表示ゲームが初期化されました');
-        console.log('キーボードショートカット:');
-        console.log('- スペース: 新しい数字を生成');
-        console.log('- Enter: 自動表示の開始/停止');
-        console.log('- Escape: 自動表示を停止');
-    }
+    // デバッグ情報の出力
+    GameUtils.debugLog('数字表示ゲームが初期化されました');
+    GameUtils.debugLog('キーボードショートカット:', {
+        'スペース': '新しい数字を生成',
+        'Enter': '自動表示の開始/停止',
+        'Escape': '自動表示を停止'
+    });
 });
