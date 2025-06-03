@@ -65,31 +65,61 @@
     justify-content: center;
 }
 
-.btn-prime {
-    background: linear-gradient(45deg, #e91e63, #9c27b0);
-    color: white;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 60px;
-    height: 60px;
+/* 素数ボタン下のアクションコントロール */
+.prime-action-controls {
     display: flex;
-    align-items: center;
+    gap: 1rem;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 2px solid rgba(156, 39, 176, 0.2);
 }
 
-.btn-prime:hover {
-    transform: translateY(-3px) scale(1.1);
-    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+.prime-action-controls .btn {
+    min-width: 140px;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
 }
 
-.btn-prime:active {
-    transform: translateY(-1px) scale(1.05);
+.prime-action-controls .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.prime-action-controls .btn-warning {
+    background: linear-gradient(45deg, #ff9800, #ffb74d);
+    color: white;
+    border: 2px solid transparent;
+}
+
+.prime-action-controls .btn-warning:hover:not(:disabled) {
+    background: linear-gradient(45deg, #f57c00, #ff9800);
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+}
+
+.prime-action-controls .btn-secondary {
+    background: linear-gradient(45deg, #757575, #9e9e9e);
+    color: white;
+    border: 2px solid transparent;
+}
+
+.prime-action-controls .btn-secondary:hover:not(:disabled) {
+    background: linear-gradient(45deg, #616161, #757575);
+    box-shadow: 0 6px 20px rgba(117, 117, 117, 0.4);
+}
+
+.prime-action-controls .btn:disabled {
+    background: linear-gradient(45deg, #e0e0e0, #bdbdbd);
+    color: #9e9e9e;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(189, 189, 189, 0.2);
 }
 
 /* 正解・不正解のフィードバック */
@@ -384,5 +414,51 @@
         margin: 0.5rem 0;
         padding: 0.8rem;
         font-size: 0.9rem;
+    }
+}
+
+/* ユーザーの因数選択表示 */
+.user-factors {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    font-size: 1.2rem;
+    color: #2196f3;
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(45deg, rgba(227, 242, 253, 0.95), rgba(187, 222, 251, 0.95));
+    border-radius: 8px;
+    border-left: 4px solid #2196f3;
+    text-align: center;
+    display: none;
+    opacity: 0;
+    animation: slideDown 0.3s ease-out forwards;
+    z-index: auto;
+    width: 100%;
+    max-width: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5rem;
+}
+
+/* 割り算エフェクト */
+.division-effect {
+    animation: division-pulse 0.6s ease-in-out;
+    transform-origin: center;
+}
+
+@keyframes division-pulse {
+    0% {
+        transform: scale(1);
+        background-color: inherit;
+    }
+    50% {
+        transform: scale(1.05);
+        background-color: #e3f2fd;
+        box-shadow: 0 0 20px rgba(33, 150, 243, 0.3);
+    }
+    100% {
+        transform: scale(1);
+        background-color: inherit;
     }
 }
