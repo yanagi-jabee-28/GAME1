@@ -2,168 +2,181 @@
 
 /* レベル選択エリア */
 .level-selector {
-    background: #e8f4fd;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border-left: 4px solid #2196f3;
+	background: #e8f4fd;
+	border-radius: 10px;
+	padding: 1.5rem;
+	margin: 1rem 0;
+	border-left: 4px solid #2196f3;
 }
 
 .level-selector h3 {
-    color: #1976d2;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
+	color: #1976d2;
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
 }
 
 .level-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
 }
 
 .level-select {
-    padding: 0.5rem 1rem;
-    border: 2px solid #2196f3;
-    border-radius: 8px;
-    font-size: 1rem;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
+	padding: 0.5rem 1rem;
+	border: 2px solid #2196f3;
+	border-radius: 8px;
+	font-size: 1rem;
+	background: white;
+	cursor: pointer;
+	transition: all 0.3s ease;
 }
 
 .level-select:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
 }
 
 .current-level {
-    color: #1976d2;
-    font-weight: bold;
-    font-size: 0.9rem;
+	color: #1976d2;
+	font-weight: bold;
+	font-size: 0.9rem;
 }
 
 /* 素数ボタンエリア */
 .prime-section {
-    background: #f3e5f5;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border-left: 4px solid #9c27b0;
+	background: #f3e5f5;
+	border-radius: 10px;
+	padding: 1.5rem;
+	margin: 1rem 0;
+	border-left: 4px solid #9c27b0;
 }
 
 .prime-section h3 {
-    color: #7b1fa2;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
+	color: #7b1fa2;
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
 }
 
 .prime-buttons {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 /* 素数ボタン下のアクションコントロール */
 .prime-action-controls {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 2px solid rgba(156, 39, 176, 0.2);
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1.5rem;
+	padding-top: 1rem;
+	border-top: 2px solid rgba(156, 39, 176, 0.2);
 }
 
 .prime-action-controls .btn {
-    min-width: 140px;
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-transform: none;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
+	min-width: 140px;
+	padding: 0.8rem 1.2rem;
+	font-size: 1rem;
+	border-radius: 8px;
+	font-weight: 600;
+	text-transform: none;
+	letter-spacing: 0.5px;
+	transition: all 0.3s ease;
 }
 
 .prime-action-controls .btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .prime-action-controls .btn-warning {
-    background: linear-gradient(45deg, #ff9800, #ffb74d);
-    color: white;
-    border: 2px solid transparent;
+	background: linear-gradient(45deg, #ff9800, #ffb74d);
+	color: white;
+	border: 2px solid transparent;
 }
 
 .prime-action-controls .btn-warning:hover:not(:disabled) {
-    background: linear-gradient(45deg, #f57c00, #ff9800);
-    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+	background: linear-gradient(45deg, #f57c00, #ff9800);
+	box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
 }
 
 .prime-action-controls .btn-secondary {
-    background: linear-gradient(45deg, #757575, #9e9e9e);
-    color: white;
-    border: 2px solid transparent;
+	background: linear-gradient(45deg, #757575, #9e9e9e);
+	color: white;
+	border: 2px solid transparent;
 }
 
 .prime-action-controls .btn-secondary:hover:not(:disabled) {
-    background: linear-gradient(45deg, #616161, #757575);
-    box-shadow: 0 6px 20px rgba(117, 117, 117, 0.4);
+	background: linear-gradient(45deg, #616161, #757575);
+	box-shadow: 0 6px 20px rgba(117, 117, 117, 0.4);
 }
 
 .prime-action-controls .btn:disabled {
-    background: linear-gradient(45deg, #e0e0e0, #bdbdbd);
-    color: #9e9e9e;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: 0 2px 8px rgba(189, 189, 189, 0.2);
+	background: linear-gradient(45deg, #e0e0e0, #bdbdbd);
+	color: #9e9e9e;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: 0 2px 8px rgba(189, 189, 189, 0.2);
 }
 
 /* 正解・不正解のフィードバック */
 .number-display.correct {
-    background: linear-gradient(45deg, #4caf50, #81c784);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: correctPulse 0.8s ease-out;
+	background: linear-gradient(45deg, #4caf50, #81c784);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: correctPulse 0.8s ease-out;
 }
 
 .number-display.incorrect {
-    background: linear-gradient(45deg, #f44336, #e57373);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: incorrectShake 0.6s ease-out;
+	background: linear-gradient(45deg, #f44336, #e57373);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: incorrectShake 0.6s ease-out;
 }
 
 @keyframes correctPulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 20px rgba(76, 175, 80, 0);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
-    }
+	0% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+	}
+
+	50% {
+		transform: scale(1.05);
+		box-shadow: 0 0 0 20px rgba(76, 175, 80, 0);
+	}
+
+	100% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+	}
 }
 
 @keyframes incorrectShake {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    10%, 30%, 50%, 70%, 90% {
-        transform: translateX(-5px);
-    }
-    20%, 40%, 60%, 80% {
-        transform: translateX(5px);
-    }
+
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	10%,
+	30%,
+	50%,
+	70%,
+	90% {
+		transform: translateX(-5px);
+	}
+
+	20%,
+	40%,
+	60%,
+	80% {
+		transform: translateX(5px);
+	}
 }
 
 /* フローティングテキスト */
@@ -181,284 +194,373 @@
 }
 
 .floating-text.success {
-    background: linear-gradient(45deg, #4caf50, #81c784);
-    color: white;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+	background: linear-gradient(45deg, #4caf50, #81c784);
+	color: white;
+	box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
 .floating-text.error {
-    background: linear-gradient(45deg, #f44336, #e57373);
-    color: white;
-    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+	background: linear-gradient(45deg, #f44336, #e57373);
+	color: white;
+	box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
 }
 
 .floating-text.info {
-    background: linear-gradient(45deg, #2196f3, #64b5f6);
-    color: white;
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+	background: linear-gradient(45deg, #2196f3, #64b5f6);
+	color: white;
+	box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
 }
 
 @keyframes floatUp {
-    0% {
-        opacity: 1;
-        transform: translateX(-50%) scale(0.8);
-    }
-    20% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1);
-    }
-    70% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(-10px) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-20px) scale(0.9);
-    }
+	0% {
+		opacity: 1;
+		transform: translateX(-50%) scale(0.8);
+	}
+
+	20% {
+		opacity: 1;
+		transform: translateX(-50%) scale(1);
+	}
+
+	70% {
+		opacity: 1;
+		transform: translateX(-50%) translateY(-10px) scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateX(-50%) translateY(-20px) scale(0.9);
+	}
 }
 
 /* 無効化されたボタンのスタイル */
 .btn-prime.disabled {
-    background: linear-gradient(45deg, #e0e0e0, #bdbdbd);
-    color: #9e9e9e;
-    box-shadow: 0 2px 8px rgba(189, 189, 189, 0.2);
-    cursor: not-allowed;
-    transform: none !important;
+	background: linear-gradient(45deg, #e0e0e0, #bdbdbd);
+	color: #9e9e9e;
+	box-shadow: 0 2px 8px rgba(189, 189, 189, 0.2);
+	cursor: not-allowed;
+	transform: none !important;
 }
 
 /* 因数分解表示 */
 .factor-display {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    font-size: 1.4rem;
-    color: #4caf50;
-    font-weight: bold;
-    padding: 0.8rem 1.5rem;
-    background: linear-gradient(45deg, rgba(232, 245, 232, 0.95), rgba(241, 248, 233, 0.95));
-    border-radius: 10px;
-    border-left: 4px solid #4caf50;
-    text-align: center;
-    display: none;
-    opacity: 0;
-    animation: slideDown 0.3s ease-out forwards;
-    z-index: auto;
-    width: 100%;
-    max-width: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin: auto 0 0 0; /* 上部マージンを自動に設定して下部に配置 */
+	position: relative;
+	top: auto;
+	left: auto;
+	transform: none;
+	font-size: 1.4rem;
+	color: #4caf50;
+	font-weight: bold;
+	padding: 0.8rem 1.5rem;
+	background: linear-gradient(45deg, rgba(232, 245, 232, 0.95), rgba(241, 248, 233, 0.95));
+	border-radius: 10px;
+	border-left: 4px solid #4caf50;
+	text-align: center;
+	display: none;
+	opacity: 0;
+	animation: slideDown 0.3s ease-out forwards;
+	z-index: auto;
+	width: 100%;
+	max-width: none;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	margin: auto 0 0 0;
+	/* 上部マージンを自動に設定して下部に配置 */
 }
 
 .factor-display.animate {
-    animation: slideDown 0.3s ease-out forwards;
+	animation: slideDown 0.3s ease-out forwards;
 }
 
 .factor-display.complete {
-    background: linear-gradient(45deg, rgba(255, 243, 224, 0.95), rgba(255, 236, 179, 0.95));
-    border-left: 4px solid #ff9800;
-    color: #e65100;
-    animation: celebration 0.8s ease-out forwards;
+	background: linear-gradient(45deg, rgba(255, 243, 224, 0.95), rgba(255, 236, 179, 0.95));
+	border-left: 4px solid #ff9800;
+	color: #e65100;
+	animation: celebration 0.8s ease-out forwards;
+}
+
+.factor-display.correct-answer {
+	background: linear-gradient(45deg, rgba(232, 245, 232, 0.95), rgba(241, 248, 233, 0.95));
+	border-left: 4px solid #4caf50;
+	color: #2e7d32;
+	animation: correctAnswerPulse 1s ease-out forwards;
+}
+
+.factor-display.error {
+	background: linear-gradient(45deg, rgba(255, 235, 238, 0.95), rgba(255, 205, 210, 0.95));
+	border-left: 4px solid #f44336;
+	color: #c62828;
+	animation: errorPulse 1s ease-out forwards;
 }
 
 .factor-display.loading {
-    background: linear-gradient(45deg, rgba(227, 242, 253, 0.95), rgba(187, 222, 251, 0.95));
-    border-left: 4px solid #2196f3;
-    color: #0d47a1;
-    animation: pulse 1.2s infinite ease-in-out;
+	background: linear-gradient(45deg, rgba(227, 242, 253, 0.95), rgba(187, 222, 251, 0.95));
+	border-left: 4px solid #2196f3;
+	color: #0d47a1;
+	animation: pulse 1.2s infinite ease-in-out;
 }
 
 @keyframes pulse {
-    0% {
-        opacity: 0.7;
-        transform: scale(0.98);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.02);
-    }
-    100% {
-        opacity: 0.7;
-        transform: scale(0.98);
-    }
+	0% {
+		opacity: 0.7;
+		transform: scale(0.98);
+	}
+
+	50% {
+		opacity: 1;
+		transform: scale(1.02);
+	}
+
+	100% {
+		opacity: 0.7;
+		transform: scale(0.98);
+	}
 }
 
 @keyframes celebration {
-    0% {
-        transform: scale(1) rotate(0deg);
-    }
-    25% {
-        transform: scale(1.1) rotate(2deg);
-    }
-    50% {
-        transform: scale(1.05) rotate(-1deg);
-    }
-    75% {
-        transform: scale(1.08) rotate(1deg);
-    }
-    100% {
-        transform: scale(1) rotate(0deg);
-    }
+	0% {
+		transform: scale(1) rotate(0deg);
+	}
+
+	25% {
+		transform: scale(1.1) rotate(2deg);
+	}
+
+	50% {
+		transform: scale(1.05) rotate(-1deg);
+	}
+
+	75% {
+		transform: scale(1.08) rotate(1deg);
+	}
+
+	100% {
+		transform: scale(1) rotate(0deg);
+	}
+}
+
+@keyframes correctAnswerPulse {
+	0% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+	}
+
+	50% {
+		transform: scale(1.03);
+		box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+	}
+
+	100% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+	}
+}
+
+@keyframes errorPulse {
+	0% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
+	}
+
+	50% {
+		transform: scale(1.03);
+		box-shadow: 0 0 0 15px rgba(244, 67, 54, 0);
+	}
+
+	100% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(244, 67, 54, 0);
+	}
 }
 
 @keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 /* 履歴アイテムの改良 */
 .history-item {
-    background: white;
-    margin: 0.8rem 0;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #ff9800;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
+	background: white;
+	margin: 0.8rem 0;
+	padding: 1rem;
+	border-radius: 10px;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+	border-left: 4px solid #ff9800;
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
 }
 
 .history-product {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #333;
+	font-size: 1.3rem;
+	font-weight: bold;
+	color: #333;
 }
 
 .history-factors {
-    color: #4caf50;
-    font-size: 1rem;
-    font-weight: 500;
+	color: #4caf50;
+	font-size: 1rem;
+	font-weight: 500;
 }
 
 .history-level {
-    color: #666;
-    font-size: 0.9rem;
+	color: #666;
+	font-size: 0.9rem;
 }
 
 /* ゲームコントロール強化 */
 .game-controls {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: auto; /* フレックスボックスで下部に押し込む */
-    margin-bottom: 0;
-    padding-top: 3rem; /* 上部にパディングを増やして計算表示用のスペースを確保 */
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
+	margin-top: auto;
+	/* フレックスボックスで下部に押し込む */
+	margin-bottom: 0;
+	padding-top: 3rem;
+	/* 上部にパディングを増やして計算表示用のスペースを確保 */
 }
 
 .control-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 /* アニメーション改良 */
 .number-display.animate {
-    animation: numberPop 0.6s ease-out;
+	animation: numberPop 0.6s ease-out;
 }
 
 @keyframes numberPop {
-    0% {
-        transform: scale(0.8);
-        opacity: 0.7;
-    }
-    50% {
-        transform: scale(1.15);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+	0% {
+		transform: scale(0.8);
+		opacity: 0.7;
+	}
+
+	50% {
+		transform: scale(1.15);
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
 }
 
 /* レスポンシブデザイン強化 */
 @media (max-width: 768px) {
-    .level-controls {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .level-select {
-        width: 100%;
-    }
-    
-    .prime-buttons {
-        justify-content: center;
-    }
-      .btn-prime {
-        width: 50px;
-        height: 50px;
-        font-size: 1rem;
-    }
-    
-    .game-controls {
-        grid-template-columns: 1fr;
-    }      .factor-display {
-        font-size: 1.1rem;
-        padding: 0.6rem 1rem;
-        margin: 0.5rem 0;
-    }
-      .number-display {
-        font-size: 3rem;
-        margin: 2rem 0;
-    }
-    
-    .calculation-area {
-        min-height: 80px;
-        margin: 0.5rem 0;
-        padding: 0.8rem;
-        font-size: 0.9rem;
-    }
+	.level-controls {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.level-select {
+		width: 100%;
+	}
+
+	.prime-buttons {
+		justify-content: center;
+	}
+
+	.btn-prime {
+		width: 50px;
+		height: 50px;
+		font-size: 1rem;
+	}
+
+	.game-controls {
+		grid-template-columns: 1fr;
+	}
+
+	.factor-display {
+		font-size: 1.1rem;
+		padding: 0.6rem 1rem;
+		margin: 0.5rem 0;
+	}
+
+	.number-display {
+		font-size: 3rem;
+		margin: 2rem 0;
+	}
+
+	.calculation-area {
+		min-height: 80px;
+		margin: 0.5rem 0;
+		padding: 0.8rem;
+		font-size: 0.9rem;
+	}
 }
 
 /* ユーザーの因数選択表示 */
 .user-factors {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    font-size: 1.2rem;
-    color: #2196f3;
-    font-weight: bold;
-    padding: 0.6rem 1.2rem;
-    background: linear-gradient(45deg, rgba(227, 242, 253, 0.95), rgba(187, 222, 251, 0.95));
-    border-radius: 8px;
-    border-left: 4px solid #2196f3;
-    text-align: center;
-    display: none;
-    opacity: 0;
-    animation: slideDown 0.3s ease-out forwards;
-    z-index: auto;
-    width: 100%;
-    max-width: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 0.5rem;
+	position: relative;
+	top: auto;
+	left: auto;
+	transform: none;
+	font-size: 1.2rem;
+	color: #2196f3;
+	font-weight: bold;
+	padding: 0.6rem 1.2rem;
+	background: linear-gradient(45deg, rgba(227, 242, 253, 0.95), rgba(187, 222, 251, 0.95));
+	border-radius: 8px;
+	border-left: 4px solid #2196f3;
+	text-align: center;
+	display: none;
+	opacity: 0;
+	animation: slideDown 0.3s ease-out forwards;
+	z-index: auto;
+	width: 100%;
+	max-width: none;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	margin-bottom: 0.5rem;
 }
 
 /* 割り算エフェクト */
 .division-effect {
-    animation: division-pulse 0.6s ease-in-out;
-    transform-origin: center;
+	animation: division-pulse 0.6s ease-in-out;
+	transform-origin: center;
 }
 
 @keyframes division-pulse {
+	0% {
+		transform: scale(1);
+		background-color: inherit;
+	}
+
+	50% {
+		transform: scale(1.05);
+		background-color: #e3f2fd;
+		box-shadow: 0 0 20px rgba(33, 150, 243, 0.3);
+	}
+
+	100% {
+		transform: scale(1);
+		background-color: inherit;
+	}
+}
+
+/* パルスアニメーション */
+.pulse {
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
     0% {
         transform: scale(1);
-        background-color: inherit;
+        box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7);
     }
     50% {
         transform: scale(1.05);
-        background-color: #e3f2fd;
-        box-shadow: 0 0 20px rgba(33, 150, 243, 0.3);
+        box-shadow: 0 0 0 15px rgba(33, 150, 243, 0);
     }
     100% {
         transform: scale(1);
-        background-color: inherit;
+        box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
     }
 }

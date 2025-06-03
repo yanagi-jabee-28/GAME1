@@ -1,97 +1,105 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>算数学習ゲーム - 素数の積</title>
-    
-    <!-- CSS読み込み -->
-    <link rel="stylesheet" href="styles/base.css">
-    <link rel="stylesheet" href="styles/game.css">
-    <link rel="stylesheet" href="styles/components.css">
-    <link rel="stylesheet" href="styles/history.css">
-    <link rel="stylesheet" href="styles/prime.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>算数学習ゲーム - 素数の積</title>
+
+	<!-- CSS読み込み -->
+	<link rel="stylesheet" href="styles/base.css">
+	<link rel="stylesheet" href="styles/game.css">
+	<link rel="stylesheet" href="styles/components.css">
+	<link rel="stylesheet" href="styles/history.css">
+	<link rel="stylesheet" href="styles/prime.css">
 </head>
+
 <body>
-    <div class="container">
-        <h1>🔢 素数の積ゲーム</h1>
-        
-        <!-- レベル選択セクション -->
-        <div class="level-selector">
-            <h3>📊 難易度選択</h3>            <div class="level-controls">
-                <select id="level-select" class="level-select">
-                    <option value="1">レベル 1 - 簡単</option>
-                    <option value="2">レベル 2 - 普通</option>
-                    <option value="3">レベル 3 - 難しい</option>
-                    <option value="4">レベル 4 - とても難しい</option>
-                    <option value="5">レベル 5 - 超難しい</option>
-                </select>
-                <div id="current-level" class="current-level">
-                    レベル 1 (素数: 2, 3, 5, 7 - 簡単)
-                </div>
-            </div>
-        </div>        <!-- 素数ボタンセクション -->
-        <div class="prime-section">
-            <h3>🎯 使用可能な素数</h3>
-            <div id="prime-buttons" class="prime-buttons">
-                <!-- 素数ボタンがここに動的に生成されます -->
-            </div>
-            
-            <!-- 素数選択用のアクションボタン -->
-            <div class="prime-action-controls">
-                <button id="submit-answer-btn" class="btn btn-warning" disabled>
-                    ✅ 解答する
-                </button>
-                <button id="clear-selection-btn" class="btn btn-secondary" disabled>
-                    🗑️ 選択クリア
-                </button>
-            </div>
-        </div>
-          <div class="game-area">
-            <div id="number-display" class="number-display">
-                素数の積を生成してください
-            </div>            <!-- 計算表示エリア -->
-            <div id="calculation-area" class="calculation-area">
-                <!-- ユーザーの選択した因数表示 -->
-                <div id="user-factors" class="user-factors" style="display: none;">
-                    あなたの答え: ?
-                </div>
-                <!-- 因数分解表示 -->
-                <div id="factor-display" class="factor-display" style="display: none;">
-                    = 2 × 3 × 5
-                </div>
-                <!-- 計算過程や進捗がここに表示されます -->
-            </div>              <div class="game-controls">                <div class="control-group">
-                    <button id="generate-btn" class="btn btn-primary">
-                        🎲 素数の積を生成
-                    </button>
-                    <button id="show-answer-btn" class="btn btn-success" disabled>
-                        💡 解答を見る
-                    </button>
-                    <button id="hint-btn" class="btn btn-info" disabled>
-                        🔍 ヒント
-                    </button>
-                </div>
-                <div class="control-group">
-                    <button id="history-btn" class="btn btn-secondary">
-                        📝 履歴を見る
-                    </button>
-                </div>
-            </div>
-        </div>
+	<div class="container">
+		<h1>🔢 素数の積ゲーム</h1>
 
-        <!-- 履歴セクション -->
-        <div id="history-section" style="display: none;">
-            <h3>🏆 生成履歴</h3>
-            <ul id="history-list" class="history-list">
-                <!-- 履歴がここに表示されます -->
-            </ul>
-        </div>        <div style="margin-top: 2rem; color: #666; font-size: 0.9rem;">
-            💡 ヒント: スペースキーで生成、素数ボタンで選択、「解答する」で割り算実行、「解答を見る」で正解表示！
-        </div>
-    </div>
+		<!-- レベル選択セクション -->
+		<div class="level-selector">
+			<h3>📊 難易度選択</h3>
+			<div class="level-controls">
+				<select id="level-select" class="level-select">
+					<option value="1">レベル 1 - 簡単</option>
+					<option value="2">レベル 2 - 普通</option>
+					<option value="3">レベル 3 - 難しい</option>
+					<option value="4">レベル 4 - とても難しい</option>
+					<option value="5">レベル 5 - 超難しい</option>
+				</select>
+				<div id="current-level" class="current-level">
+					レベル 1 (素数: 2, 3, 5, 7 - 簡単)
+				</div>
+			</div>
+		</div> <!-- 素数ボタンセクション -->
+		<div class="prime-section">
+			<h3>🎯 使用可能な素数</h3>
+			<div id="prime-buttons" class="prime-buttons">
+				<!-- 素数ボタンがここに動的に生成されます -->
+			</div>
 
-    <!-- JavaScript読み込み -->
-    <script type="module" src="js/app.js"></script>
+			<!-- 素数選択用のアクションボタン -->
+			<div class="prime-action-controls">
+				<button id="submit-answer-btn" class="btn btn-warning" disabled>
+					✅ 解答する
+				</button>
+				<button id="clear-selection-btn" class="btn btn-secondary" disabled>
+					🗑️ 選択クリア
+				</button>
+			</div>
+		</div>
+		<div class="game-area">
+			<div id="number-display" class="number-display">
+				素数の積を生成してください
+			</div> <!-- 計算表示エリア -->
+			<div id="calculation-area" class="calculation-area">
+				<!-- ユーザーの選択した因数表示 -->
+				<div id="user-factors" class="user-factors" style="display: none;">
+					あなたの答え: ?
+				</div>
+				<!-- 因数分解表示 -->
+				<div id="factor-display" class="factor-display" style="display: none;">
+					= 2 × 3 × 5
+				</div>
+				<!-- 計算過程や進捗がここに表示されます -->
+			</div>
+			<div class="game-controls">
+				<div class="control-group">
+					<button id="generate-btn" class="btn btn-primary">
+						🎲 素数の積を生成
+					</button>
+					<button id="show-answer-btn" class="btn btn-success" disabled>
+						💡 解答を見る
+					</button>
+					<button id="hint-btn" class="btn btn-info" disabled>
+						🔍 ヒント
+					</button>
+				</div>				<div class="control-group">
+					<button id="history-btn" class="btn btn-secondary">
+						📝 履歴を見る
+					</button>
+					<button id="auto-progress-btn" class="btn btn-info">
+						⏸️ 手動進行に切り替え
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- 履歴セクション -->
+		<div id="history-section" style="display: none;">
+			<h3>🏆 生成履歴</h3>
+			<ul id="history-list" class="history-list">
+				<!-- 履歴がここに表示されます -->
+			</ul>
+		</div>        <div style="margin-top: 2rem; color: #666; font-size: 0.9rem;">
+            💡 ヒント: スペース=生成, Enter=解答, A=正解表示, P=自動/手動切替, C=選択クリア, H=履歴表示
+        </div>
+	</div>
+
+	<!-- JavaScript読み込み -->
+	<script type="module" src="js/app.js"></script>
 </body>
+
 </html>

@@ -3,16 +3,18 @@ import { PrimeManager } from './primeManager.js';
 import { UIManager } from './uiManager.js';
 import { Utils } from './utils.js';
 
-export class PrimeGame {	constructor() {
+export class PrimeGame {
+	constructor() {
 		this.primeManager = new PrimeManager();
 		this.uiManager = new UIManager();
-		this.currentResult = null;
-		this.gameHistory = [];
+		this.currentResult = null;		this.gameHistory = [];
 		this.isShowingAnswer = false;
 		this.currentNumber = null; // 現在表示されている数字
 		this.selectedFactors = []; // ユーザーが選択した因数
 		this.originalNumber = null; // 元の数字（リセット用）
 		this.usedFactors = []; // 実際に使用された因数（段階的割り算用）
+		this.autoProgress = true; // 自動進行を制御
+		this.nextProblemTimeout = null; // 次の問題生成のタイマー
 		this.initialize();
 	}	/**
      * ゲームを初期化
@@ -24,6 +26,7 @@ export class PrimeGame {	constructor() {
 		this.updateShowAnswerButton();
 		this.updateClearButton();
 		this.updateUserFactorsDisplay();
+		this.updateAutoProgressButton();
 		this.uiManager.displayPlaceholder('素数の積を生成してください');
 		console.log('素数ゲームが初期化されました');
 	}
@@ -73,12 +76,18 @@ export class PrimeGame {	constructor() {
 			levelSelect.addEventListener('change', (e) => this.changeLevel(parseInt(e.target.value)));
 		}
 
-		// 履歴表示ボタン
-		const historyBtn = document.getElementById('history-btn');
+		// 履歴表示ボタン		const historyBtn = document.getElementById('history-btn');
 		if (historyBtn) {
 			historyBtn.addEventListener('click', () => this.toggleHistory());
 		}
 
+		const autoProgressBtn = document.getElementById('auto-progress-btn');
+		if (autoProgressBtn) {
+			autoProgressBtn.addEventListener('click', () => {
+				this.toggleAutoProgress();
+				this.updateAutoProgressButton();
+			});
+		}
 		// キーボードショートカット
 		document.addEventListener('keydown', (event) => {
 			if (event.code === 'Space') {
@@ -90,8 +99,18 @@ export class PrimeGame {	constructor() {
 			} else if (event.code === 'KeyA') {
 				event.preventDefault();
 				this.showAnswer();
+			} else if (event.code === 'KeyP') {
+				event.preventDefault();
+				this.toggleAutoProgress();
+			} else if (event.code === 'KeyC') {
+				event.preventDefault();
+				this.clearSelection();
+			} else if (event.code === 'KeyH') {
+				event.preventDefault();
+				this.toggleHistory();
 			}
-		});	}/**
+		});
+	}/**
      * 素数の積をランダム生成
      */	generatePrimeProduct() {
 		this.currentResult = this.primeManager.generateRandomProduct();
@@ -183,11 +202,10 @@ export class PrimeGame {	constructor() {
 		this.primeManager.setLevel(level);
 		this.updateLevelDisplay();
 		this.updatePrimeButtons();
-
 		// 現在の結果をリセット
 		this.currentResult = null;
 		this.currentNumber = null;
-		this.originalNumber = null;		this.selectedFactors = [];
+		this.originalNumber = null; this.selectedFactors = [];
 		this.usedFactors = [];
 		this.isShowingAnswer = false;
 		this.updateFactorDisplay();
@@ -294,7 +312,7 @@ export class PrimeGame {	constructor() {
 		const index = this.selectedFactors.indexOf(prime);
 		if (index !== -1) {
 			this.selectedFactors.splice(index, 1);
-					// 表示を更新
+			// 表示を更新
 			this.updateUserFactorsDisplay();
 			this.updateSubmitAnswerButton();
 			this.updateClearButton();
@@ -379,10 +397,10 @@ export class PrimeGame {	constructor() {
 	positionFloatingText(floatingText, calculationArea) {
 		// 計算エリアの上部（数字表示と計算式の間）に配置
 		const topPosition = 10; // 上部から10px
-		
+
 		// 全てのメッセージタイプ（正解、不正解、情報）を同じ位置に配置（重ねる）
 		floatingText.style.top = `${topPosition}px`;
-		
+
 		// 水平方向は中央
 		floatingText.style.left = '50%';
 	}
@@ -417,8 +435,13 @@ export class PrimeGame {	constructor() {
 		});
 	}	/**
 	 * ゲームをリセット
-	 */
-	reset() {
+	 */	reset() {
+		// タイマーをクリア
+		if (this.nextProblemTimeout) {
+			clearTimeout(this.nextProblemTimeout);
+			this.nextProblemTimeout = null;
+		}
+
 		this.currentResult = null;
 		this.currentNumber = null;
 		this.originalNumber = null;
@@ -426,6 +449,7 @@ export class PrimeGame {	constructor() {
 		this.usedFactors = [];
 		this.gameHistory = [];
 		this.isShowingAnswer = false;
+		this.autoProgress = true;
 		this.primeManager.setLevel(1);
 		this.updateLevelDisplay();
 		this.updatePrimeButtons();
@@ -433,6 +457,7 @@ export class PrimeGame {	constructor() {
 		this.updateSubmitAnswerButton();
 		this.updateShowAnswerButton();
 		this.updateUserFactorsDisplay();
+		this.updateAutoProgressButton();
 		this.uiManager.displayPlaceholder('素数の積を生成してください');
 		this.uiManager.toggleVisibility('history-section', false);
 	}
@@ -474,18 +499,17 @@ export class PrimeGame {	constructor() {
 
 		// ユーザーが選択した因数のうち、正解に含まれるものを特定
 		const correctFactors = this.currentResult.primes;
-		const validUserFactors = this.selectedFactors.filter(factor => 
+		const validUserFactors = this.selectedFactors.filter(factor =>
 			correctFactors.includes(factor)
 		);
 
 		// 段階的に割り算を実行
 		let tempNumber = this.currentNumber;
 		let usedFactors = [];
-
-		// 1秒後から開始
+		// 0.5秒後から開始
 		setTimeout(() => {
 			this.performStepByStepDivision(tempNumber, correctFactors, usedFactors, 0);
-		}, 1000);
+		}, 500);
 	}
 
 	/**
@@ -524,11 +548,10 @@ export class PrimeGame {	constructor() {
 				numberDisplay.classList.remove('division-effect');
 			}, 600);
 		}
-
-		// 次の因数で割る（1.2秒後）
+		// 次の因数で割る（1秒後）
 		setTimeout(() => {
 			this.performStepByStepDivision(newNumber, factors, usedFactors, index + 1);
-		}, 1200);
+		}, 1000);
 	}
 
 	/**
@@ -542,7 +565,7 @@ export class PrimeGame {	constructor() {
 
 		if (usedFactors.length > 0) {
 			const factorText = usedFactors.join(' × ');
-			
+
 			if (this.currentNumber === 1) {
 				// 完了時
 				factorDisplay.textContent = `✨ ${originalNumber} = ${factorText}`;
@@ -552,7 +575,7 @@ export class PrimeGame {	constructor() {
 				factorDisplay.textContent = `${originalNumber} ÷ (${factorText}) = ${this.currentNumber}`;
 				factorDisplay.classList.remove('complete');
 			}
-			
+
 			factorDisplay.style.display = 'block';
 			factorDisplay.style.opacity = '1';
 		}
@@ -571,18 +594,21 @@ export class PrimeGame {	constructor() {
 		primeButtons.forEach(button => {
 			button.disabled = true;
 			button.classList.add('disabled');
-		});
-
-		// 2秒後に新しい問題を自動生成
-		setTimeout(() => {
-			this.createFloatingText('🔄 新しい問題を準備中...', 'info');
-			setTimeout(() => {
-				this.generatePrimeProduct();
-			}, 500);
-		}, 2000);
-	}
-
-	/**
+		});		// 自動進行または手動進行
+		if (this.autoProgress) {
+			// 1.5秒後に新しい問題を自動生成
+			this.nextProblemTimeout = setTimeout(() => {
+				this.createFloatingText('🔄 新しい問題を準備中...', 'info');
+				setTimeout(() => {
+					this.generatePrimeProduct();
+				}, 300);
+			}, 1500);
+		} else {
+			// 手動進行：ユーザーが次の問題ボタンを押すまで待機
+			this.createFloatingText('✅ 完了！次の問題ボタンを押してください', 'info');
+			this.showNextProblemButton();
+		}
+	}	/**
 	 * ユーザーの解答を実行（選択した因数で実際に割り算）
 	 */
 	submitAnswer() {
@@ -590,41 +616,75 @@ export class PrimeGame {	constructor() {
 			return;
 		}
 
+		// 現在までの使用因数と選択因数を合わせて正解と比較
+		const allUsedFactors = [...this.usedFactors, ...this.selectedFactors];
+		const isValidSelection = this.isValidFactorSelection(allUsedFactors);
+
+		if (!isValidSelection) {
+			this.createFloatingText(`❌ 選択した因数では正しい因数分解になりません`, 'error');
+			this.selectedFactors = [];
+			this.updateUserFactorsDisplay();
+			this.updateSubmitAnswerButton();
+			return;
+		}
+
+		// 現在の数字が選択された因数の積で割り切れるかチェック
+		const product = this.selectedFactors.reduce((acc, factor) => acc * factor, 1);
+		if (this.currentNumber % product !== 0) {
+			this.createFloatingText(`❌ 選択した因数 ${this.selectedFactors.join('×')} では割り切れません`, 'error');
+			this.selectedFactors = [];
+			this.updateUserFactorsDisplay();
+			this.updateSubmitAnswerButton();
+			return;
+		}
+
 		// 選択した因数で実際に割り算を試行
-		let success = true;
 		let tempNumber = this.currentNumber;
-		const validFactors = [];
-		const invalidFactors = [];
+		const validFactors = [...this.selectedFactors]; // 事前チェックで有効性を確認済み
 
-		// 各選択因数をチェック
-		for (const factor of this.selectedFactors) {
-			if (tempNumber % factor === 0) {
-				// 割り切れる場合
-				tempNumber = tempNumber / factor;
-				validFactors.push(factor);
-				this.usedFactors.push(factor);
-			} else {
-				// 割り切れない場合
-				invalidFactors.push(factor);
-				success = false;
-			}
-		}
+		// 因数を使用済みに追加
+		this.usedFactors.push(...validFactors);
 
-		// 結果に応じて処理
-		if (invalidFactors.length > 0) {
-			// 一部または全部が間違っている場合
-			this.createFloatingText(`❌ ${invalidFactors.join(', ')}で割り切れません`, 'error');
-		}
-
-		if (validFactors.length > 0) {
-			// 正しい因数があった場合、実際に割り算を実行
-			this.performActualDivision(validFactors, tempNumber);
-		}
+		// 割り算を実行
+		tempNumber = this.currentNumber / product;
+		this.performActualDivision(validFactors, tempNumber);
 
 		// 選択をリセット
 		this.selectedFactors = [];
 		this.updateUserFactorsDisplay();
 		this.updateSubmitAnswerButton();
+	}
+
+	/**
+	 * 選択された因数が有効かどうかをチェック
+	 * @param {number[]} factors チェックする因数配列
+	 * @returns {boolean} 有効かどうか
+	 */
+	isValidFactorSelection(factors) {
+		if (!this.currentResult) return false;
+
+		// 各因数の使用回数をカウント
+		const factorCount = {};
+		factors.forEach(factor => {
+			factorCount[factor] = (factorCount[factor] || 0) + 1;
+		});
+
+		// 正解の因数の使用回数をカウント
+		const correctFactorCount = {};
+		this.currentResult.primes.forEach(prime => {
+			correctFactorCount[prime] = (correctFactorCount[prime] || 0) + 1;
+		});
+
+		// 各因数の使用回数が正解を超えていないかチェック
+		for (const [factor, count] of Object.entries(factorCount)) {
+			const maxAllowed = correctFactorCount[factor] || 0;
+			if (count > maxAllowed) {
+				console.log(`因数 ${factor} を ${count} 回使用していますが、正解では ${maxAllowed} 回しか使われません`);
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -661,7 +721,6 @@ export class PrimeGame {	constructor() {
 			this.onFactorizationComplete();
 		}
 	}
-
 	/**
 	 * 進捗表示を更新
 	 */
@@ -670,40 +729,122 @@ export class PrimeGame {	constructor() {
 		if (!factorDisplay || this.usedFactors.length === 0) return;
 
 		const factorText = this.usedFactors.join(' × ');
-		
+
 		if (this.currentNumber === 1) {
-			// 完了時
-			factorDisplay.textContent = `🎉 ${this.originalNumber} = ${factorText}`;
-			factorDisplay.classList.add('complete');
+			// 1になったが、まだ正解かどうかは検証前
+			factorDisplay.textContent = `${this.originalNumber} = ${factorText}`;
+			factorDisplay.classList.remove('complete', 'correct-answer', 'error');
 		} else {
 			// 進行中
 			factorDisplay.textContent = `${this.originalNumber} ÷ (${factorText}) = ${this.currentNumber}`;
-			factorDisplay.classList.remove('complete');
+			factorDisplay.classList.remove('complete', 'correct-answer', 'error');
 		}
-		
+
 		factorDisplay.style.display = 'block';
 		factorDisplay.style.opacity = '1';
 		Utils.addTemporaryClass(factorDisplay, 'animate', 500);
-	}
-
-	/**
+	}/**
 	 * 因数分解完了時の処理
 	 */
 	onFactorizationComplete() {
-		// 完了メッセージ
-		this.createFloatingText('🎉 因数分解完了！おめでとう！', 'success');
+		// 使用した因数が正解と一致するかチェック
+		const isCorrect = this.validateFinalAnswer();
 
-		// ボタンを無効化
+		// 進捗表示を更新（完了状態にする前に検証）
+		this.updateProgressDisplay();
+
+		if (isCorrect) {
+			// 正解の場合
+			this.createFloatingText('🎉 因数分解完了！おめでとう！', 'success');
+			// 完了スタイルを適用
+			const factorDisplay = document.getElementById('factor-display');
+			if (factorDisplay) {
+				factorDisplay.classList.add('complete');
+				factorDisplay.classList.remove('correct-answer');
+			}
+		} else {
+			// 不正解の場合
+			this.createFloatingText('❌ 因数分解が正解と一致しません', 'error');
+			// 不正解スタイルを適用
+			const factorDisplay = document.getElementById('factor-display');
+			if (factorDisplay) {
+				factorDisplay.classList.remove('complete');
+				factorDisplay.classList.add('error');
+				factorDisplay.textContent = `❌ ${this.originalNumber} = ${this.usedFactors.join(' × ')} (不正解)`;
+			}			// 正解を表示
+			setTimeout(() => {
+				this.showCorrectAnswer();
+			}, 800);
+		}		// ボタンを無効化
 		this.updatePrimeButtons();
 		this.updateSubmitAnswerButton();
 
-		// 3秒後に新しい問題を生成
-		setTimeout(() => {
-			this.createFloatingText('🔄 新しい問題を準備中...', 'info');
-			setTimeout(() => {
-				this.generatePrimeProduct();
-			}, 500);
-		}, 3000);
+		// 自動進行または手動進行
+		if (this.autoProgress) {
+			// 2秒後に新しい問題を生成
+			this.nextProblemTimeout = setTimeout(() => {
+				this.createFloatingText('🔄 新しい問題を準備中...', 'info');
+				setTimeout(() => {
+					this.generatePrimeProduct();
+				}, 300);
+			}, 2000);
+		} else {
+			// 手動進行：ユーザーが次の問題ボタンを押すまで待機
+			this.createFloatingText('✅ 完了！次の問題ボタンを押してください', 'info');
+			this.showNextProblemButton();
+		}
+	}
+	/**
+	 * 最終的な解答が正解かどうかを検証
+	 * @returns {boolean} 正解かどうか
+	 */
+	validateFinalAnswer() {
+		if (!this.currentResult || !this.usedFactors.length) {
+			return false;
+		}
+
+		// 使用した因数をソート
+		const usedFactorsSorted = [...this.usedFactors].sort((a, b) => a - b);
+		// 正解の因数をソート
+		const correctFactorsSorted = [...this.currentResult.primes].sort((a, b) => a - b);
+
+		// デバッグ情報をコンソールに出力
+		console.log('使用した因数:', usedFactorsSorted);
+		console.log('正解の因数:', correctFactorsSorted);
+		console.log('元の数字:', this.originalNumber);
+		console.log('現在の数字:', this.currentNumber);
+
+		// 配列の長さが違う場合は不正解
+		if (usedFactorsSorted.length !== correctFactorsSorted.length) {
+			console.log('因数の個数が正解と一致しません');
+			return false;
+		}
+
+		// 要素を一つずつ比較
+		for (let i = 0; i < usedFactorsSorted.length; i++) {
+			if (usedFactorsSorted[i] !== correctFactorsSorted[i]) {
+				console.log(`因数が一致しません: ${usedFactorsSorted[i]} ≠ ${correctFactorsSorted[i]}`);
+				return false;
+			}
+		}
+
+		console.log('因数分解が正解です！');
+		return true;
+	}
+
+	/**
+	 * 正解を表示
+	 */
+	showCorrectAnswer() {
+		const factorDisplay = document.getElementById('factor-display');
+		if (!factorDisplay || !this.currentResult) return;
+
+		const correctFactors = this.currentResult.primes.join(' × ');
+		factorDisplay.textContent = `正解: ${this.originalNumber} = ${correctFactors}`;
+		factorDisplay.classList.remove('complete');
+		factorDisplay.classList.add('correct-answer');
+		factorDisplay.style.display = 'block';
+		factorDisplay.style.opacity = '1';
 	}
 
 	/**
@@ -715,9 +856,9 @@ export class PrimeGame {	constructor() {
 			const hasSelections = this.selectedFactors.length > 0;
 			const isComplete = this.currentNumber === 1;
 			const hasNumber = this.currentNumber && this.currentNumber !== null;
-			
+
 			btn.disabled = !hasNumber || !hasSelections || isComplete || this.isShowingAnswer;
-			
+
 			if (isComplete) {
 				btn.textContent = '✅ 完了';
 			} else if (hasSelections) {
@@ -734,6 +875,60 @@ export class PrimeGame {	constructor() {
 		const btn = document.getElementById('clear-selection-btn');
 		if (btn) {
 			btn.disabled = this.selectedFactors.length === 0 || this.isShowingAnswer || this.currentNumber === 1;
+		}
+	}
+
+	/**
+	 * 次の問題ボタンを表示
+	 */
+	showNextProblemButton() {
+		const generateBtn = document.getElementById('generate-btn');
+		if (generateBtn) {
+			generateBtn.textContent = '🎲 次の問題を生成';
+			generateBtn.disabled = false;
+			generateBtn.classList.remove('disabled');
+			Utils.addTemporaryClass(generateBtn, 'pulse', 1000);
+		}
+	}
+
+	/**
+	 * 自動進行の切り替え
+	 */
+	toggleAutoProgress() {
+		this.autoProgress = !this.autoProgress;
+		
+		// 現在のタイマーをクリア
+		if (this.nextProblemTimeout) {
+			clearTimeout(this.nextProblemTimeout);
+			this.nextProblemTimeout = null;
+		}
+
+		const message = this.autoProgress ? 
+			'🔄 自動進行モードに切り替えました' : 
+			'⏸️ 手動進行モードに切り替えました';
+		this.createFloatingText(message, 'info');
+
+		// 自動進行モードで、完了状態の場合は即座に次の問題を生成
+		if (this.autoProgress && this.currentNumber === 1) {
+			setTimeout(() => {
+				this.generatePrimeProduct();
+			}, 1000);
+		}
+	}
+
+	/**
+	 * 自動進行ボタンの表示を更新
+	 */
+	updateAutoProgressButton() {
+		const autoProgressBtn = document.getElementById('auto-progress-btn');
+		if (autoProgressBtn) {
+			if (this.autoProgress) {
+				autoProgressBtn.textContent = '⏸️ 手動進行に切り替え';
+				autoProgressBtn.title = 'Pキーでも切り替え可能';
+			} else {
+				autoProgressBtn.textContent = '🔄 自動進行に切り替え';
+				autoProgressBtn.title = 'Pキーでも切り替え可能';
+			}
 		}
 	}
 }
