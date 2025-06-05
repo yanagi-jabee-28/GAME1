@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>硬式テニス・ダブルス 自己評価シート</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 17px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .question-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+        .question-item p {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        .options legend {
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding: 0;
+            font-size: 1em; /* Ensure legend inherits font size */
+        }
+        .options label {
+            display: inline-block; /* Changed from block for better alignment in some cases */
+            margin-right: 25px;
+            margin-bottom: 8px; /* Added for spacing if they wrap */
+            font-size: 15px;
+            cursor: pointer;
+            vertical-align: middle; /* Align radio button and text */
+        }
+        .options input[type="radio"] {
+            margin-right: 6px;
+            vertical-align: middle; /* Align radio button with text */
+        }
+        fieldset { /* Added styling for fieldset */
+            border: none; /* Removed default border */
+            padding: 0;
+            margin: 0;
+        }
+        .supplemental-info label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .supplemental-info input[type="text"],
+        .supplemental-info textarea {
+            width: calc(100% - 22px); /* Accommodate padding and border */
+            padding: 10px;
+            margin-top: 3px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            font-size: 15px;
+        }
+        .supplemental-info textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 60px;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 35px 0;
+        }
+        .print-button { /* Style for a print button if you add one */
+            display: block;
+            width: 120px;
+            margin: 30px auto 0;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .print-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* 印刷用スタイル */
+        @media print {
+            body {
+                margin: 1cm; /* Adjust print margins */
+                padding: 0;
+                background-color: #fff;
+                color: #000;
+                font-size: 12pt; /* Adjust base font size for print */
+            }
+            .container {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            h1, h2, h3 {
+                color: #000 !important; /* Ensure black color for print */
+                border-bottom-color: #000 !important; /* Ensure black border for print */
+                page-break-after: avoid; /* Avoid breaking pages after headings */
+            }
+            .question-item {
+                border: 1px solid #999;
+                background-color: #fff !important;
+                page-break-inside: avoid; /* Try to keep question items on one page */
+                padding: 15px;
+            }
+            .options label {
+                margin-right: 15px; /* Adjust spacing for print */
+            }
+            .supplemental-info input[type="text"],
+            .supplemental-info textarea {
+                border: 1px solid #777;
+            }
+            .print-button { /* Hide print button in print view */
+                display: none !important;
+            }
+            hr {
+                background-color: #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>硬式テニス・ダブルス 自己評価シート</h1>
+
+        <div class="section">
+            <h2>【評価の目安】</h2>
+            <ul>
+                <li><strong>A (得意)</strong>：自信がある、積極的にできる</li>
+                <li><strong>B (ふつう)</strong>：ある程度できる、ときどき上手くいく</li>
+                <li><strong>C (苦手)</strong>：あまり自信がない、ミスが多い</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <form id="selfAssessmentForm"> <div class="section">
+                <h2>【自己評価】</h2>
+                <p>以下の各項目について、自分自身に最も当てはまる評価を選んでください。</p>
+
+                <div class="question-item">
+                    <h3>1. サーブ＆ストローク</h3>
+                    <p>サーブを安定して入れたり、ラリーを続けたりすることは得意ですか？</p>
+                    <fieldset class="options">
+                        <legend class="sr-only">サーブ＆ストロークの評価</legend> <label><input type="radio" name="q1_serve_stroke" value="A"> A (得意)</label>
+                        <label><input type="radio" name="q1_serve_stroke" value="B"> B (ふつう)</label>
+                        <label><input type="radio" name="q1_serve_stroke" value="C"> C (苦手)</label>
+                    </fieldset>
+                </div>
+
+                <div class="question-item">
+                    <h3>2. ネットプレー</h3>
+                    <p>ボレーやスマッシュ、ポーチなど、ネットに出てのプレーはどうですか？</p>
+                    <fieldset class="options">
+                        <legend class="sr-only">ネットプレーの評価</legend>
+                        <label><input type="radio" name="q2_net_play" value="A"> A (得意)</label>
+                        <label><input type="radio" name="q2_net_play" value="B"> B (ふつう)</label>
+                        <label><input type="radio" name="q2_net_play" value="C"> C (苦手)</label>
+                    </fieldset>
+                </div>
+
+                <div class="question-item">
+                    <h3>3. レシーブ</h3>
+                    <p>相手のサーブをしっかり返すのは得意ですか？</p>
+                    <fieldset class="options">
+                        <legend class="sr-only">レシーブの評価</legend>
+                        <label><input type="radio" name="q3_receive" value="A"> A (得意)</label>
+                        <label><input type="radio" name="q3_receive" value="B"> B (ふつう)</label>
+                        <label><input type="radio" name="q3_receive" value="C"> C (苦手)</label>
+                    </fieldset>
+                </div>
+
+                <div class="question-item">
+                    <h3>4. ダブルスの連携</h3>
+                    <p>パートナーと声をかけ合ったり、協力して動いたりすることは得意ですか？</p>
+                    <fieldset class="options">
+                        <legend class="sr-only">ダブルスの連携の評価</legend>
+                        <label><input type="radio" name="q4_teamwork" value="A"> A (得意)</label>
+                        <label><input type="radio" name="q4_teamwork" value="B"> B (ふつう)</label>
+                        <label><input type="radio" name="q4_teamwork" value="C"> C (苦手)</label>
+                    </fieldset>
+                </div>
+
+                <div class="question-item">
+                    <h3>5. 積極性</h3>
+                    <p>ミスを恐れずに、積極的にポイントを取りにいこうとしますか？</p>
+                    <fieldset class="options">
+                        <legend class="sr-only">積極性の評価</legend>
+                        <label><input type="radio" name="q5_aggressiveness" value="A"> A (積極的)</label>
+                        <label><input type="radio" name="q5_aggressiveness" value="B"> B (ふつう)</label>
+                        <label><input type="radio" name="q5_aggressiveness" value="C"> C (消極的)</label>
+                    </fieldset>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="section supplemental-info">
+                <h2>【よろしければ教えてください】</h2>
+                <div>
+                    <label for="studentName">氏名：</label>
+                    <input type="text" id="studentName" name="studentName">
+                </div>
+                <div>
+                    <label for="tennisExperience">テニス経験（例：約〇年、初心者、部活経験あり など）：</label>
+                    <textarea id="tennisExperience" name="tennisExperience" rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="button" class="print-button" onclick="window.print();">このページを印刷</button>
+
+        </form>
+    </div>
+</body>
+</html>
