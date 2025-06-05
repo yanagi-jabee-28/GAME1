@@ -3,224 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>硬式テニス・ダブルス 自己評価シート（印刷用）</title>
+    <title>硬式テニス・ダブルス 自己評価シート（複数回記録用）</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            line-height: 1.7;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4; /* 画面表示時の背景色 */
+            background-color: #f4f4f4;
             color: #333;
         }
         .container {
             width: 90%;
-            max-width: 800px; /* 画面表示時の最大幅 */
+            max-width: 850px; /* テーブル表示のため少し幅を広げる */
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 画面表示時の影 */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
-        h2 {
-            color: #34495e;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-size: 18px;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 6px;
-        }
-        h3 {
-            color: #34495e;
-            margin-top: 15px;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .question-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            background-color: #f9f9f9; /* 画面表示時 */
-        }
-        .question-item p {
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 15px;
-        }
-        .options legend { /* スクリーンリーダー用、視覚的には非表示も検討 */
-            font-weight: bold;
-            margin-bottom: 5px;
-            padding: 0;
-            font-size: 1em;
-            color: #333;
-        }
-        .options label {
-            display: inline-block;
-            margin-right: 20px; /* チェック間のスペース */
-            margin-bottom: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            vertical-align: middle;
-            line-height: 1.5;
-        }
-        .options input[type="radio"] {
-            margin-right: 5px;
-            vertical-align: middle;
-            transform: scale(1.1); /* 画面上で少し大きく見せる */
-        }
-        fieldset {
-            border: none;
-            padding: 0;
-            margin: 0 0 10px 0;
-        }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 20px; font-size: 22px; }
+        h2 { color: #34495e; margin-top: 25px; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #3498db; padding-bottom: 6px; }
+        h3 { color: #34495e; margin-top: 15px; margin-bottom: 8px; font-size: 16px; } /* 日付などの小見出し用 */
+        hr { border: 0; height: 1px; background-color: #e0e0e0; margin: 25px 0; }
 
-        .supplemental-info .field-container {
-            margin-bottom: 15px;
-        }
-        .supplemental-info label.field-label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            font-size: 15px;
-        }
+        .section { margin-bottom: 20px; }
+        .supplemental-info .field-container { margin-bottom: 10px; }
+        .supplemental-info label.field-label { display: block; margin-bottom: 3px; font-weight: bold; font-size: 15px; }
 
-        /* 画面表示用の入力フォームスタイル */
-        .screen-only {
-            display: block;
-            width: calc(100% - 16px); /* paddingを考慮 */
-            padding: 8px;
+        .screen-only { display: block; width: calc(100% - 16px); padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-bottom: 5px; font-size: 14px; }
+        textarea.screen-only { resize: vertical; min-height: 40px; } /* 経験欄は少し小さく */
+        .print-only { display: none; }
+
+        .date-input-area { margin-bottom: 12px; }
+        .date-input-area label { font-weight: bold; margin-right: 5px; font-size: 15px;}
+        .date-input-area input[type="text"].screen-only { display: inline-block; width: 180px; margin-right: 10px; padding: 6px; font-size:14px;}
+        .date-fill-in.print-only { border-bottom: 1px solid #333; display: inline-block; width: 180px; height: 1.5em; vertical-align: bottom; margin-left:5px;}
+
+        /* テーブルスタイル */
+        .evaluation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px; /* 日付欄との間隔 */
+            margin-bottom: 20px;
+        }
+        .evaluation-table th, .evaluation-table td {
             border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 5px;
+            padding: 6px 8px; /* 少し詰める */
+            text-align: left;
             font-size: 14px;
+            vertical-align: middle;
         }
-        textarea.screen-only {
+        .evaluation-table th {
+            background-color: #e9ecef; /* 画面表示時のヘッダー背景 */
+            font-weight: bold;
+        }
+        .evaluation-table td.item-name { width: 30%; font-weight: bold; }
+        .evaluation-table td.item-description { font-size: 0.85em; font-weight: normal; color: #555; padding-top: 0; line-height: 1.3;}
+        .evaluation-table td.evaluation-options { width: 40%; } /* ラジオボタンのスペース */
+        .evaluation-table td.comments-cell { width: 30%; }
+
+        .evaluation-options label { display: inline-block; margin-right: 10px; font-size: 13px; vertical-align: middle; line-height: 1.4;}
+        .evaluation-options input[type="radio"] { margin-right: 3px; vertical-align: middle; transform: scale(1.0); }
+
+        textarea.comment-input.screen-only {
+            width: 100%;
+            height: 36px; /* 画面でのコメント入力高さ (1-2行程度) */
+            font-size: 13px;
+            padding: 4px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
             resize: vertical;
-            min-height: 60px;
+        }
+        .comment-fill-in.print-only {
+            border-bottom: 1px solid #333;
+            height: 1.5em; /* 1行コメント用 */
+            display: block;
         }
 
-        /* 印刷時にのみ表示される手書き記入用の線や箱 (通常は非表示) */
-        .print-only {
-            display: none;
-        }
-
-        hr {
-            border: 0;
-            height: 1px;
-            background-color: #e0e0e0;
-            margin: 25px 0;
-        }
-        .print-button-container { /* 印刷ボタンのコンテナ（画面表示時のみ） */
-            text-align: center;
-            margin-top: 20px;
-        }
-        .print-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .print-button:hover {
-            background-color: #2980b9;
-        }
+        .print-button-container { text-align: center; margin-top: 20px; }
+        .print-button { display: inline-block; padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; text-decoration: none; }
+        .print-button:hover { background-color: #2980b9; }
 
         /* --- 印刷用スタイル --- */
         @media print {
             body {
-                font-family: "MS Mincho", "Hiragino Mincho ProN", serif; /* 印刷に適した明朝体 */
-                margin: 1.5cm; /* A4印刷時の推奨マージン */
+                font-family: "MS Mincho", "Hiragino Mincho ProN", serif;
+                margin: 1.2cm; /* A4印刷時のマージン */
                 padding: 0;
                 background-color: #fff !important;
                 color: #000 !important;
-                font-size: 11pt; /* 印刷時の基本フォントサイズ */
-                line-height: 1.6; /* 印刷時の行間 */
+                font-size: 9.5pt; /* 全体的にフォントを少し小さくして情報を詰め込む */
+                line-height: 1.4; /* 印刷時の行間 */
             }
-            .container {
-                width: 100%;
-                max-width: none;
-                margin: 0;
-                padding: 0;
-                border: none !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-            }
-            h1 { font-size: 18pt; margin-bottom: 0.8cm; text-align: center; }
-            h2 { font-size: 14pt; margin-top: 0.8cm; margin-bottom: 0.5cm; border-bottom: 1px solid #000; padding-bottom: 2mm;}
-            h3 { font-size: 12pt; margin-top: 0.6cm; margin-bottom: 0.3cm;}
-            .section { margin-bottom: 0.6cm; }
-            .question-item {
-                border: 1px solid #888 !important; /* 印刷時は少し濃いめの枠線 */
-                background-color: #fff !important;
-                page-break-inside: avoid; /* 質問項目がページをまたがないように */
-                padding: 10px; margin-bottom: 0.5cm;
-            }
-            .question-item p { font-size: 11pt; margin-bottom: 0.3cm; }
-            .options label { font-size: 11pt; margin-right: 15px; line-height: 1.6;}
-            .options input[type="radio"] {
-                transform: scale(1.0); /* 印刷時はデフォルトサイズ */
-                margin-right: 1.5mm; /* ラジオボタンとテキストの間隔 */
-                vertical-align: -1px; /* 微調整 */
-            }
-            ul { padding-left: 20px; margin-top: 0.3cm; }
-            li { margin-bottom: 2mm; }
+            .container { width: 100%; max-width: none; margin: 0; padding: 0; border: none !important; box-shadow: none !important; border-radius: 0 !important; }
+            h1 { font-size: 16pt; margin-bottom: 0.6cm; text-align: center; }
+            h2 { font-size: 12pt; margin-top: 0.6cm; margin-bottom: 0.3cm; border-bottom: 1px solid #000; padding-bottom: 1.5mm; }
+            h3 { font-size: 10pt; margin-top: 0.4cm; margin-bottom: 0.2cm; }
+            hr { border: 0; height: 0.5px; background-color: #bbb !important; margin: 0.5cm 0; }
 
-            /* 画面表示用の入力フォームは印刷時に非表示 */
-            .screen-only {
-                display: none !important;
+            .screen-only { display: none !important; }
+            .print-only { display: block !important; }
+            .date-fill-in.print-only { display: inline-block !important; border-bottom: 1px solid #000 !important; width: 150px; height: 1.2em;}
+
+            .supplemental-info .fill-in-line.print-only { border-bottom: 1px solid #000 !important; height: 1.3em !important; margin-top: 0.1em; margin-bottom: 0.3em !important; width: 100%; box-sizing: border-box; }
+            .supplemental-info .fill-in-box.print-only { border: 1px solid #000 !important; height: 2.6em !important; margin-top: 0.1em; padding: 1mm; width: 100%; box-sizing: border-box; background-color: #fff !important; }
+
+            .evaluation-round > h2 { /* 各評価回のH2は少し小さめでも良いかも */
+                 font-size: 11pt;
             }
-            /* 印刷用の手書き記入欄を表示 */
-            .print-only {
-                display: block !important;
-            }
-            .fill-in-line.print-only {
-                border-bottom: 1px solid #333 !important;
-                height: 1.8em !important; /* 手書きしやすい高さ */
-                margin-top: 0.2em;
-                margin-bottom: 0.8em !important;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .fill-in-box.print-only {
+            .date-input-area label { font-size: 10pt;}
+
+            .evaluation-table { margin-top: 0.2cm; margin-bottom: 0.4cm; page-break-inside: auto; }
+            .evaluation-table th, .evaluation-table td {
                 border: 1px solid #333 !important;
-                height: 5em !important; /* 2-3行分程度の手書きスペース */
-                margin-top: 0.2em;
-                padding: 2mm;
-                width: 100%;
-                box-sizing: border-box;
-                background-color: #fff !important;
+                padding: 1.2mm 1.5mm; /* セル内パディング調整 */
+                font-size: 9pt; /* テーブル内フォント */
+                vertical-align: middle;
+            }
+            .evaluation-table th { background-color: #e8e8e8 !important; font-weight: bold; }
+            .evaluation-table td.item-name { font-weight: bold; }
+            .evaluation-table td.item-description { font-size: 0.9em; font-weight: normal; color: #333; padding-top: 0; line-height: 1.2;}
+            .evaluation-options label { font-size: 9pt; margin-right: 1mm; line-height:1.2; } /* ラベル間のスペースを少し詰める */
+            .evaluation-options input[type="radio"] { margin-right: 0.5mm; vertical-align: -1px; transform: scale(0.85); } /* ラジオボタン少し小さく */
+
+            .comment-fill-in.print-only {
+                border-bottom: 1px solid #000 !important;
+                height: 1.3em !important;
+                display: block !important;
+                margin-top: 0.5mm; /* コメント欄の微調整 */
             }
 
-            .print-button-container, .print-button { /* 印刷ボタンは表示しない */
-                display: none !important;
-            }
-            hr {
-                border: 0;
-                height: 0.5px;
-                background-color: #bbb !important;
-                margin: 0.7cm 0;
-            }
+            .page-break { page-break-before: always; margin:0; padding:0; height:0; line-height:0; font-size:0; } /* ページ区切りを強制 */
+            .print-button-container { display: none !important; }
+            ul { padding-left: 15px; margin-top: 0.1cm; }
+            li { margin-bottom: 1mm; font-size: 9.5pt;}
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>硬式テニス・ダブルス 自己評価シート</h1>
+        <h1>硬式テニス・ダブルス 自己評価シート（複数回記録用）</h1>
 
         <div class="section">
             <h2>【評価の目安】</h2>
@@ -233,86 +157,202 @@
 
         <hr>
 
-        <form id="selfAssessmentForm"> <div class="section">
-                <h2>【自己評価】</h2>
-                <p>以下の各項目について、自分自身に最も当てはまる評価を選んでください。</p>
+        <div class="section supplemental-info">
+            <h2>【基本情報】</h2>
+            <div class="field-container">
+                <label class="field-label" for="studentName">氏名：</label>
+                <input type="text" id="studentName" name="studentName" class="screen-only" placeholder="画面上で入力できます">
+                <div class="fill-in-line print-only"></div>
+            </div>
+            <div class="field-container">
+                <label class="field-label" for="tennisExperience">テニス経験（例：約〇年、初心者、部活経験あり など）：</label>
+                <textarea id="tennisExperience" name="tennisExperience" rows="2" class="screen-only" placeholder="画面上で入力できます"></textarea>
+                <div class="fill-in-box print-only"></div>
+            </div>
+        </div>
 
-                <div class="question-item">
-                    <h3>1. サーブ＆ストローク</h3>
-                    <p>サーブを安定して入れたり、ラリーを続けたりすることは得意ですか？</p>
-                    <fieldset class="options">
-                        <legend class="sr-only">サーブ＆ストロークの評価</legend>
-                        <label><input type="radio" name="q1_serve_stroke" value="A"> A (得意)</label>
-                        <label><input type="radio" name="q1_serve_stroke" value="B"> B (ふつう)</label>
-                        <label><input type="radio" name="q1_serve_stroke" value="C"> C (苦手)</label>
-                    </fieldset>
+        <form id="selfAssessmentForm">
+            <div class="section evaluation-round">
+                <h2>【第1回 評価】</h2>
+                <div class="date-input-area">
+                    <label for="date_round1">実施日：</label>
+                    <input type="text" id="date_round1" name="date_round1" class="screen-only" placeholder="例: YYYY/MM/DD">
+                    <span class="date-fill-in print-only"></span>
                 </div>
-
-                <div class="question-item">
-                    <h3>2. ネットプレー</h3>
-                    <p>ボレーやスマッシュ、ポーチなど、ネットに出てのプレーはどうですか？</p>
-                    <fieldset class="options">
-                        <legend class="sr-only">ネットプレーの評価</legend>
-                        <label><input type="radio" name="q2_net_play" value="A"> A (得意)</label>
-                        <label><input type="radio" name="q2_net_play" value="B"> B (ふつう)</label>
-                        <label><input type="radio" name="q2_net_play" value="C"> C (苦手)</label>
-                    </fieldset>
-                </div>
-
-                <div class="question-item">
-                    <h3>3. レシーブ</h3>
-                    <p>相手のサーブをしっかり返すのは得意ですか？</p>
-                    <fieldset class="options">
-                        <legend class="sr-only">レシーブの評価</legend>
-                        <label><input type="radio" name="q3_receive" value="A"> A (得意)</label>
-                        <label><input type="radio" name="q3_receive" value="B"> B (ふつう)</label>
-                        <label><input type="radio" name="q3_receive" value="C"> C (苦手)</label>
-                    </fieldset>
-                </div>
-
-                <div class="question-item">
-                    <h3>4. ダブルスの連携</h3>
-                    <p>パートナーと声をかけ合ったり、協力して動いたりすることは得意ですか？</p>
-                    <fieldset class="options">
-                        <legend class="sr-only">ダブルスの連携の評価</legend>
-                        <label><input type="radio" name="q4_teamwork" value="A"> A (得意)</label>
-                        <label><input type="radio" name="q4_teamwork" value="B"> B (ふつう)</label>
-                        <label><input type="radio" name="q4_teamwork" value="C"> C (苦手)</label>
-                    </fieldset>
-                </div>
-
-                <div class="question-item">
-                    <h3>5. 積極性</h3>
-                    <p>ミスを恐れずに、積極的にポイントを取りにいこうとしますか？</p>
-                    <fieldset class="options">
-                        <legend class="sr-only">積極性の評価</legend>
-                        <label><input type="radio" name="q5_aggressiveness" value="A"> A (積極的)</label>
-                        <label><input type="radio" name="q5_aggressiveness" value="B"> B (ふつう)</label>
-                        <label><input type="radio" name="q5_aggressiveness" value="C"> C (消極的)</label>
-                    </fieldset>
-                </div>
+                <table class="evaluation-table">
+                    <thead>
+                        <tr>
+                            <th class="item-name">評価項目</th>
+                            <th class="evaluation-options">評価 (A/B/C)</th>
+                            <th class="comments-cell">コメント（気づいたことなど）</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="item-name">1. サーブ＆ストローク <p class="item-description">サーブの安定性、ラリーの継続力</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q1_r1" value="A"> A</label>
+                                <label><input type="radio" name="q1_r1" value="B"> B</label>
+                                <label><input type="radio" name="q1_r1" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c1_r1" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="item-name">2. ネットプレー <p class="item-description">ボレー、スマッシュ、ポーチなど</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q2_r1" value="A"> A</label>
+                                <label><input type="radio" name="q2_r1" value="B"> B</label>
+                                <label><input type="radio" name="q2_r1" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c2_r1" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="item-name">3. レシーブ <p class="item-description">相手サーブの安定した返球</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q3_r1" value="A"> A</label>
+                                <label><input type="radio" name="q3_r1" value="B"> B</label>
+                                <label><input type="radio" name="q3_r1" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c3_r1" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="item-name">4. ダブルスの連携 <p class="item-description">声かけ、カバーリングなど</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q4_r1" value="A"> A</label>
+                                <label><input type="radio" name="q4_r1" value="B"> B</label>
+                                <label><input type="radio" name="q4_r1" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c4_r1" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="item-name">5. 積極性 <p class="item-description">ミスを恐れぬプレー、挑戦</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q5_r1" value="A"> A</label>
+                                <label><input type="radio" name="q5_r1" value="B"> B</label>
+                                <label><input type="radio" name="q5_r1" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c5_r1" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <hr>
+            <div class="page-break"></div>
 
-            <div class="section supplemental-info">
-                <h2>【よろしければ教えてください】</h2>
-                <div class="field-container">
-                    <label class="field-label" for="studentName">氏名：</label>
-                    <input type="text" id="studentName" name="studentName" class="screen-only" placeholder="画面上で入力できます">
-                    <div class="fill-in-line print-only"></div>
+            <div class="section evaluation-round">
+                <h2>【第2回 評価】</h2>
+                <div class="date-input-area">
+                    <label for="date_round2">実施日：</label>
+                    <input type="text" id="date_round2" name="date_round2" class="screen-only" placeholder="例: YYYY/MM/DD">
+                    <span class="date-fill-in print-only"></span>
                 </div>
-                <div class="field-container">
-                    <label class="field-label" for="tennisExperience">テニス経験（例：約〇年、初心者、部活経験あり など）：</label>
-                    <textarea id="tennisExperience" name="tennisExperience" rows="3" class="screen-only" placeholder="画面上で入力できます"></textarea>
-                    <div class="fill-in-box print-only"></div>
-                </div>
+                <table class="evaluation-table">
+                    <thead>
+                        <tr>
+                            <th class="item-name">評価項目</th>
+                            <th class="evaluation-options">評価 (A/B/C)</th>
+                            <th class="comments-cell">コメント</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="item-name">1. サーブ＆ストローク <p class="item-description">サーブの安定性、ラリーの継続力</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q1_r2" value="A"> A</label>
+                                <label><input type="radio" name="q1_r2" value="B"> B</label>
+                                <label><input type="radio" name="q1_r2" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c1_r2" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="item-name">2. ネットプレー <p class="item-description">ボレー、スマッシュ、ポーチなど</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q2_r2" value="A"> A</label>
+                                <label><input type="radio" name="q2_r2" value="B"> B</label>
+                                <label><input type="radio" name="q2_r2" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c2_r2" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="item-name">3. レシーブ <p class="item-description">相手サーブの安定した返球</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q3_r2" value="A"> A</label>
+                                <label><input type="radio" name="q3_r2" value="B"> B</label>
+                                <label><input type="radio" name="q3_r2" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c3_r2" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="item-name">4. ダブルスの連携 <p class="item-description">声かけ、カバーリングなど</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q4_r2" value="A"> A</label>
+                                <label><input type="radio" name="q4_r2" value="B"> B</label>
+                                <label><input type="radio" name="q4_r2" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c4_r2" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="item-name">5. 積極性 <p class="item-description">ミスを恐れぬプレー、挑戦</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q5_r2" value="A"> A</label>
+                                <label><input type="radio" name="q5_r2" value="B"> B</label>
+                                <label><input type="radio" name="q5_r2" value="C"> C</label>
+                            </td>
+                            <td class="comments-cell">
+                                <textarea class="comment-input screen-only" name="c5_r2" rows="1"></textarea>
+                                <div class="comment-fill-in print-only"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-             <div class="print-button-container">
-                <button type="button" class="print-button" onclick="window.print();">このページを印刷</button>
-            </div>
-        </form>
-    </div>
-</body>
-</html>
+             <div class="section evaluation-round">
+                <h2>【第3回 評価】</h2>
+                <div class="date-input-area">
+                    <label for="date_round3">実施日：</label>
+                    <input type="text" id="date_round3" name="date_round3" class="screen-only" placeholder="例: YYYY/MM/DD">
+                    <span class="date-fill-in print-only"></span>
+                </div>
+                <table class="evaluation-table">
+                    <thead>
+                        <tr>
+                            <th class="item-name">評価項目</th>
+                            <th class="evaluation-options">評価 (A/B/C)</th>
+                            <th class="comments-cell">コメント</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="item-name">1. サーブ＆ストローク <p class="item-description">サーブの安定性、ラリーの継続力</p></td>
+                            <td class="evaluation-options">
+                                <label><input type="radio" name="q1_r3" value="A"> A</label>
+                                <label><input type="radio" name="q1_r3" value="B"> B</label>
+                                <label><input type="radio" name="q1_r3" value
